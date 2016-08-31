@@ -1,14 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A304a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mQ5-hF-FAk">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Snapshot-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SnapshotViewController" customModule="Spending_Splitter_2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +18,84 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin Owes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dy1-VA-fIR">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANp-J4-p81">
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
+                                <color key="textColor" red="0.97647058819999999" green="0.0" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uoa-ZI-by9">
+                                <state key="normal" title="Add Expense"/>
+                                <connections>
+                                    <action selector="addExpenseTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4AB-jx-frq"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin is $40 over budget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N5D-69-YhS">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rosalee is $40 under budget" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLD-LS-cMO">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Qm-GN-ohI">
+                                <state key="normal" title="Budget"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="dy1-VA-fIR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="1iD-aM-8bs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="N5D-69-YhS" secondAttribute="trailing" id="1iF-CR-wD8"/>
+                            <constraint firstItem="GLD-LS-cMO" firstAttribute="top" secondItem="N5D-69-YhS" secondAttribute="bottom" constant="50" id="C6N-aK-S9u"/>
+                            <constraint firstItem="Uoa-ZI-by9" firstAttribute="top" secondItem="ANp-J4-p81" secondAttribute="bottom" constant="44" id="Ghu-2a-ANV"/>
+                            <constraint firstItem="GLD-LS-cMO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Hct-2i-j6E"/>
+                            <constraint firstItem="N5D-69-YhS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="MN4-qi-mtR"/>
+                            <constraint firstItem="dy1-VA-fIR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QJb-b6-kiJ"/>
+                            <constraint firstItem="7Qm-GN-ohI" firstAttribute="top" secondItem="GLD-LS-cMO" secondAttribute="bottom" constant="50" id="h7D-TP-imF"/>
+                            <constraint firstItem="N5D-69-YhS" firstAttribute="top" secondItem="Uoa-ZI-by9" secondAttribute="bottom" constant="44" id="rGd-zO-UXj"/>
+                            <constraint firstItem="Uoa-ZI-by9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="s56-wK-gNd"/>
+                            <constraint firstItem="7Qm-GN-ohI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uPi-Hd-3IH"/>
+                            <constraint firstItem="ANp-J4-p81" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="uzl-vi-u0W"/>
+                            <constraint firstItem="ANp-J4-p81" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="wvm-8Y-RJF"/>
+                            <constraint firstItem="ANp-J4-p81" firstAttribute="top" secondItem="dy1-VA-fIR" secondAttribute="bottom" constant="25" id="xle-Be-VvW"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Snapshot" id="Cva-rb-60E"/>
+                    <connections>
+                        <outlet property="addExpenseButton" destination="Uoa-ZI-by9" id="4IJ-mh-3od"/>
+                        <outlet property="amountOwedLabel" destination="ANp-J4-p81" id="xqD-jI-36Y"/>
+                        <outlet property="budgetButton" destination="7Qm-GN-ohI" id="ctA-8w-BS5"/>
+                        <outlet property="calvinBudgetStatusLabel" destination="N5D-69-YhS" id="GYf-8K-ykn"/>
+                        <outlet property="rosieBudgetStatusLabel" destination="GLD-LS-cMO" id="wRf-75-sjc"/>
+                        <outlet property="whoOwesLabel" destination="dy1-VA-fIR" id="7XT-Bx-eBh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="324" y="81.409295352323838"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="QO2-xC-EwK">
+            <objects>
+                <navigationController id="mQ5-hF-FAk" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="doU-aC-Zp0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="pOC-DJ-TPE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OkC-BH-gC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-366" y="81"/>
         </scene>
     </scenes>
 </document>

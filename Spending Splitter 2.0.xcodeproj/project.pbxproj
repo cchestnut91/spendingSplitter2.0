@@ -8,12 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		3EF8F8721D76705600324861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8711D76705600324861 /* AppDelegate.swift */; };
-		3EF8F8741D76705600324861 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8731D76705600324861 /* ViewController.swift */; };
+		3EF8F8741D76705600324861 /* SnapshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8731D76705600324861 /* SnapshotViewController.swift */; };
 		3EF8F8771D76705600324861 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EF8F8751D76705600324861 /* Main.storyboard */; };
 		3EF8F8791D76705600324861 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EF8F8781D76705600324861 /* Assets.xcassets */; };
 		3EF8F87C1D76705600324861 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EF8F87A1D76705600324861 /* LaunchScreen.storyboard */; };
 		3EF8F8871D76705600324861 /* Spending_Splitter_2_0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8861D76705600324861 /* Spending_Splitter_2_0Tests.swift */; };
 		3EF8F8921D76705600324861 /* Spending_Splitter_2_0UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8911D76705600324861 /* Spending_Splitter_2_0UITests.swift */; };
+		3EF8F8A21D767F4000324861 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF8F8A11D767F4000324861 /* CloudKit.framework */; };
+		3EF8F8A41D768AB800324861 /* ExpenseKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8A31D768AB800324861 /* ExpenseKeys.swift */; };
+		3EF8F8A61D768AE100324861 /* Spender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8A51D768AE100324861 /* Spender.swift */; };
+		3EF8F8A81D768AF000324861 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8A71D768AF000324861 /* Expense.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +40,7 @@
 /* Begin PBXFileReference section */
 		3EF8F86E1D76705600324861 /* Spending Splitter 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spending Splitter 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EF8F8711D76705600324861 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3EF8F8731D76705600324861 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3EF8F8731D76705600324861 /* SnapshotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotViewController.swift; sourceTree = "<group>"; };
 		3EF8F8761D76705600324861 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3EF8F8781D76705600324861 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EF8F87B1D76705600324861 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +51,11 @@
 		3EF8F88D1D76705600324861 /* Spending Splitter 2.0UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Spending Splitter 2.0UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EF8F8911D76705600324861 /* Spending_Splitter_2_0UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spending_Splitter_2_0UITests.swift; sourceTree = "<group>"; };
 		3EF8F8931D76705600324861 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3EF8F89F1D767F3D00324861 /* Spending Splitter 2.0.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Spending Splitter 2.0.entitlements"; sourceTree = "<group>"; };
+		3EF8F8A11D767F4000324861 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		3EF8F8A31D768AB800324861 /* ExpenseKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseKeys.swift; sourceTree = "<group>"; };
+		3EF8F8A51D768AE100324861 /* Spender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spender.swift; sourceTree = "<group>"; };
+		3EF8F8A71D768AF000324861 /* Expense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EF8F8A21D767F4000324861 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +91,7 @@
 				3EF8F8851D76705600324861 /* Spending Splitter 2.0Tests */,
 				3EF8F8901D76705600324861 /* Spending Splitter 2.0UITests */,
 				3EF8F86F1D76705600324861 /* Products */,
+				3EF8F8A01D767F4000324861 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,8 +108,12 @@
 		3EF8F8701D76705600324861 /* Spending Splitter 2.0 */ = {
 			isa = PBXGroup;
 			children = (
+				3EF8F89F1D767F3D00324861 /* Spending Splitter 2.0.entitlements */,
 				3EF8F8711D76705600324861 /* AppDelegate.swift */,
-				3EF8F8731D76705600324861 /* ViewController.swift */,
+				3EF8F8731D76705600324861 /* SnapshotViewController.swift */,
+				3EF8F8A31D768AB800324861 /* ExpenseKeys.swift */,
+				3EF8F8A51D768AE100324861 /* Spender.swift */,
+				3EF8F8A71D768AF000324861 /* Expense.swift */,
 				3EF8F8751D76705600324861 /* Main.storyboard */,
 				3EF8F8781D76705600324861 /* Assets.xcassets */,
 				3EF8F87A1D76705600324861 /* LaunchScreen.storyboard */,
@@ -123,6 +138,14 @@
 				3EF8F8931D76705600324861 /* Info.plist */,
 			);
 			path = "Spending Splitter 2.0UITests";
+			sourceTree = "<group>";
+		};
+		3EF8F8A01D767F4000324861 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3EF8F8A11D767F4000324861 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,6 +218,14 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = VDWJ8UMBJ6;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					3EF8F8811D76705600324861 = {
 						CreatedOnToolsVersion = 8.0;
@@ -262,8 +293,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EF8F8741D76705600324861 /* ViewController.swift in Sources */,
+				3EF8F8741D76705600324861 /* SnapshotViewController.swift in Sources */,
+				3EF8F8A61D768AE100324861 /* Spender.swift in Sources */,
 				3EF8F8721D76705600324861 /* AppDelegate.swift in Sources */,
+				3EF8F8A41D768AB800324861 /* ExpenseKeys.swift in Sources */,
+				3EF8F8A81D768AF000324861 /* Expense.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +449,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Spending Splitter 2.0/Spending Splitter 2.0.entitlements";
 				DEVELOPMENT_TEAM = VDWJ8UMBJ6;
 				INFOPLIST_FILE = "Spending Splitter 2.0/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -428,6 +463,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Spending Splitter 2.0/Spending Splitter 2.0.entitlements";
 				DEVELOPMENT_TEAM = VDWJ8UMBJ6;
 				INFOPLIST_FILE = "Spending Splitter 2.0/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -514,6 +550,7 @@
 				3EF8F8981D76705600324861 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3EF8F8991D76705600324861 /* Build configuration list for PBXNativeTarget "Spending Splitter 2.0Tests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +559,7 @@
 				3EF8F89B1D76705600324861 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3EF8F89C1D76705600324861 /* Build configuration list for PBXNativeTarget "Spending Splitter 2.0UITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +568,7 @@
 				3EF8F89E1D76705600324861 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
