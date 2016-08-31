@@ -11,8 +11,10 @@ import Foundation
 class ExpenseKeys : NSObject {
     
     static let expenseRecordType = "Expense"
+    static let recurringExpenseType = "Recurring"
     
     static let expenseAmountKey = "kExpenseAmount"
+    static let expenseIDKey = "kExpenseID"
     static let expenseDateKey = "kExpenseDate"
     static let expenseMemoKey = "kExpenseMemo"
     static let expensePercentageOwedKey = "kExpenseOwed"
@@ -20,5 +22,10 @@ class ExpenseKeys : NSObject {
     static let expenseSpenderKey = "kExpenseSpender"
     static let expenseRecurringKey = "kExpenseRecurring"
     static let expenseIntervalKey = "kExpenseInterval"
+    
+    static let intervalWeekly = "Weekly"
+    static let intervalBiWeekly = "Biweekly"
+    static let intervalMonthly = "Monthly"
+    static let intervalYearly = "Yearly"
     
 }

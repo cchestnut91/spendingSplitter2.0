@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E0A8FA01D76FEA1008E3B9D /* RecurringExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8F9F1D76FEA1008E3B9D /* RecurringExpense.swift */; };
+		3E0A8FA21D76FFB1008E3B9D /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8FA11D76FFB1008E3B9D /* CloudKitManager.swift */; };
+		3E0A8FA41D77009E008E3B9D /* DeletedExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8FA31D77009E008E3B9D /* DeletedExpense.swift */; };
+		3E0A8FA61D770AE2008E3B9D /* Date+Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8FA51D770AE2008E3B9D /* Date+Compare.swift */; };
 		3EF8F8721D76705600324861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8711D76705600324861 /* AppDelegate.swift */; };
 		3EF8F8741D76705600324861 /* SnapshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8731D76705600324861 /* SnapshotViewController.swift */; };
 		3EF8F8771D76705600324861 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EF8F8751D76705600324861 /* Main.storyboard */; };
@@ -38,6 +42,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E0A8F9F1D76FEA1008E3B9D /* RecurringExpense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecurringExpense.swift; sourceTree = "<group>"; };
+		3E0A8FA11D76FFB1008E3B9D /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
+		3E0A8FA31D77009E008E3B9D /* DeletedExpense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeletedExpense.swift; sourceTree = "<group>"; };
+		3E0A8FA51D770AE2008E3B9D /* Date+Compare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Compare.swift"; sourceTree = "<group>"; };
 		3EF8F86E1D76705600324861 /* Spending Splitter 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spending Splitter 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EF8F8711D76705600324861 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EF8F8731D76705600324861 /* SnapshotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +122,10 @@
 				3EF8F8A31D768AB800324861 /* ExpenseKeys.swift */,
 				3EF8F8A51D768AE100324861 /* Spender.swift */,
 				3EF8F8A71D768AF000324861 /* Expense.swift */,
+				3E0A8F9F1D76FEA1008E3B9D /* RecurringExpense.swift */,
+				3E0A8FA31D77009E008E3B9D /* DeletedExpense.swift */,
+				3E0A8FA11D76FFB1008E3B9D /* CloudKitManager.swift */,
+				3E0A8FA51D770AE2008E3B9D /* Date+Compare.swift */,
 				3EF8F8751D76705600324861 /* Main.storyboard */,
 				3EF8F8781D76705600324861 /* Assets.xcassets */,
 				3EF8F87A1D76705600324861 /* LaunchScreen.storyboard */,
@@ -295,7 +307,11 @@
 			files = (
 				3EF8F8741D76705600324861 /* SnapshotViewController.swift in Sources */,
 				3EF8F8A61D768AE100324861 /* Spender.swift in Sources */,
+				3E0A8FA01D76FEA1008E3B9D /* RecurringExpense.swift in Sources */,
 				3EF8F8721D76705600324861 /* AppDelegate.swift in Sources */,
+				3E0A8FA21D76FFB1008E3B9D /* CloudKitManager.swift in Sources */,
+				3E0A8FA61D770AE2008E3B9D /* Date+Compare.swift in Sources */,
+				3E0A8FA41D77009E008E3B9D /* DeletedExpense.swift in Sources */,
 				3EF8F8A41D768AB800324861 /* ExpenseKeys.swift in Sources */,
 				3EF8F8A81D768AF000324861 /* Expense.swift in Sources */,
 			);
