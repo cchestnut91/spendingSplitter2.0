@@ -11,8 +11,8 @@ import CloudKit
 
 class Expense : NSObject {
     
-    var identifier : String?
-    var expenseID : String?
+    var identifier : String!
+    var expenseID : String!
     var amount : NSNumber?
     var date : NSDate?
     var memo : String?
@@ -23,6 +23,10 @@ class Expense : NSObject {
     var interval : String?
     
     override init() {
+        self.identifier = NSUUID().uuidString
+        self.expenseID = NSUUID().uuidString
+        self.date = Date() as NSDate
+        
         super.init()
     }
     

@@ -10,6 +10,10 @@
 		3E0A8FA01D76FEA1008E3B9D /* RecurringExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8F9F1D76FEA1008E3B9D /* RecurringExpense.swift */; };
 		3E0A8FA21D76FFB1008E3B9D /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8FA11D76FFB1008E3B9D /* CloudKitManager.swift */; };
 		3E0A8FAC1D77AD60008E3B9D /* ExpenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8FAB1D77AD60008E3B9D /* ExpenseManager.swift */; };
+		3E0A8FAE1D77BC4E008E3B9D /* AddExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8FAD1D77BC4E008E3B9D /* AddExpenseViewController.swift */; };
+		3E0A8FB01D77D053008E3B9D /* CategoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8FAF1D77D052008E3B9D /* CategoryManager.swift */; };
+		3E0A8FB21D77D3E5008E3B9D /* IntervalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8FB11D77D3E5008E3B9D /* IntervalManager.swift */; };
+		3E0A8FB41D77E621008E3B9D /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8FB31D77E621008E3B9D /* ErrorManager.swift */; };
 		3EF8F8721D76705600324861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8711D76705600324861 /* AppDelegate.swift */; };
 		3EF8F8741D76705600324861 /* SnapshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8731D76705600324861 /* SnapshotViewController.swift */; };
 		3EF8F8771D76705600324861 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EF8F8751D76705600324861 /* Main.storyboard */; };
@@ -44,6 +48,10 @@
 		3E0A8F9F1D76FEA1008E3B9D /* RecurringExpense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecurringExpense.swift; sourceTree = "<group>"; };
 		3E0A8FA11D76FFB1008E3B9D /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		3E0A8FAB1D77AD60008E3B9D /* ExpenseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseManager.swift; sourceTree = "<group>"; };
+		3E0A8FAD1D77BC4E008E3B9D /* AddExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExpenseViewController.swift; sourceTree = "<group>"; };
+		3E0A8FAF1D77D052008E3B9D /* CategoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryManager.swift; sourceTree = "<group>"; };
+		3E0A8FB11D77D3E5008E3B9D /* IntervalManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalManager.swift; sourceTree = "<group>"; };
+		3E0A8FB31D77E621008E3B9D /* ErrorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
 		3EF8F86E1D76705600324861 /* Spending Splitter 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spending Splitter 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EF8F8711D76705600324861 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EF8F8731D76705600324861 /* SnapshotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +121,9 @@
 			children = (
 				3E0A8FA11D76FFB1008E3B9D /* CloudKitManager.swift */,
 				3E0A8FAB1D77AD60008E3B9D /* ExpenseManager.swift */,
+				3E0A8FAF1D77D052008E3B9D /* CategoryManager.swift */,
+				3E0A8FB11D77D3E5008E3B9D /* IntervalManager.swift */,
+				3E0A8FB31D77E621008E3B9D /* ErrorManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -121,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				3EF8F8731D76705600324861 /* SnapshotViewController.swift */,
+				3E0A8FAD1D77BC4E008E3B9D /* AddExpenseViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -338,7 +350,11 @@
 				3EF8F8A61D768AE100324861 /* Spender.swift in Sources */,
 				3E0A8FAC1D77AD60008E3B9D /* ExpenseManager.swift in Sources */,
 				3E0A8FA01D76FEA1008E3B9D /* RecurringExpense.swift in Sources */,
+				3E0A8FAE1D77BC4E008E3B9D /* AddExpenseViewController.swift in Sources */,
+				3E0A8FB01D77D053008E3B9D /* CategoryManager.swift in Sources */,
+				3E0A8FB41D77E621008E3B9D /* ErrorManager.swift in Sources */,
 				3EF8F8721D76705600324861 /* AppDelegate.swift in Sources */,
+				3E0A8FB21D77D3E5008E3B9D /* IntervalManager.swift in Sources */,
 				3E0A8FA21D76FFB1008E3B9D /* CloudKitManager.swift in Sources */,
 				3EF8F8A41D768AB800324861 /* ExpenseKeys.swift in Sources */,
 				3EF8F8A81D768AF000324861 /* Expense.swift in Sources */,

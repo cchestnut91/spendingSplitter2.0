@@ -38,6 +38,9 @@
                                         <state key="normal" title="Add Expense"/>
                                         <connections>
                                             <action selector="addExpenseTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4AB-jx-frq"/>
+                                            <segue destination="HWv-LN-t4j" kind="popoverPresentation" popoverAnchorView="Uoa-ZI-by9" id="jaB-JI-sOa">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                            </segue>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin is $40 over budget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N5D-69-YhS">
@@ -102,6 +105,166 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="324" y="81.409295352323838"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="rcg-x6-JRM">
+            <objects>
+                <navigationController id="HWv-LN-t4j" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GRz-6S-f6r">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="6yO-7N-kUo" kind="relationship" relationship="rootViewController" id="MDr-eZ-QRs"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="16Y-cX-Vc8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1385" y="-86"/>
+        </scene>
+        <!--Add Expense-->
+        <scene sceneID="ohh-h7-gna">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="6yO-7N-kUo" customClass="AddExpenseViewController" customModule="Spending_Splitter_2_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kCT-gC-P7j"/>
+                        <viewControllerLayoutGuide type="bottom" id="pqS-md-Ls7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Xb9-67-FPD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORp-Kd-N82">
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zMD-vr-uUd">
+                                        <subviews>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gsl-qv-gzg">
+                                                <segments>
+                                                    <segment title="Calvin"/>
+                                                    <segment title="Rosie"/>
+                                                </segments>
+                                            </segmentedControl>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ww5-DY-Ixw">
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Memo" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OP3-8u-uyD">
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="done"/>
+                                            </textField>
+                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="la3-A8-ya9">
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="VPp-pS-lVM"/>
+                                                </constraints>
+                                            </pickerView>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="39O-M1-rWR">
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="130" id="jP5-XD-EbV"/>
+                                                </constraints>
+                                                <date key="date" timeIntervalSinceReferenceDate="494387192.63673699">
+                                                    <!--2016-09-01 01:46:32 +0000-->
+                                                </date>
+                                                <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
+                                                    <!--1970-01-01 11:00:00 +0000-->
+                                                </date>
+                                                <date key="maximumDate" timeIntervalSinceReferenceDate="1167562800">
+                                                    <!--2037-12-31 11:00:00 +0000-->
+                                                </date>
+                                            </datePicker>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ffg-tP-7cd"/>
+                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ng8-I9-m3a">
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="IOk-n4-DAR"/>
+                                                </constraints>
+                                            </pickerView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDM-z7-ZjQ">
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="42" id="dCp-DN-NpL"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hum-D7-HYm">
+                                                <state key="normal" title="Save"/>
+                                                <connections>
+                                                    <action selector="saveTapped:" destination="6yO-7N-kUo" eventType="touchUpInside" id="ads-bc-4Ai"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="ng8-I9-m3a" secondAttribute="trailing" id="149-He-khU"/>
+                                            <constraint firstAttribute="trailing" secondItem="PDM-z7-ZjQ" secondAttribute="trailing" constant="16" id="3TO-UE-efZ"/>
+                                            <constraint firstItem="Hum-D7-HYm" firstAttribute="top" secondItem="ng8-I9-m3a" secondAttribute="bottom" constant="5" id="3Vk-AV-b8f"/>
+                                            <constraint firstAttribute="trailing" secondItem="gsl-qv-gzg" secondAttribute="trailing" constant="8" id="3xg-pk-tGm"/>
+                                            <constraint firstItem="gsl-qv-gzg" firstAttribute="leading" secondItem="zMD-vr-uUd" secondAttribute="leading" constant="8" id="5Ri-hv-JLI"/>
+                                            <constraint firstItem="39O-M1-rWR" firstAttribute="top" secondItem="la3-A8-ya9" secondAttribute="bottom" constant="16" id="CS3-Ho-01z"/>
+                                            <constraint firstAttribute="trailing" secondItem="la3-A8-ya9" secondAttribute="trailing" id="CsB-hY-ORy"/>
+                                            <constraint firstItem="Ww5-DY-Ixw" firstAttribute="top" secondItem="gsl-qv-gzg" secondAttribute="bottom" constant="25" id="D5u-sa-vkG"/>
+                                            <constraint firstAttribute="bottom" secondItem="Hum-D7-HYm" secondAttribute="bottom" constant="8" id="E2u-ae-nti"/>
+                                            <constraint firstItem="gsl-qv-gzg" firstAttribute="top" secondItem="zMD-vr-uUd" secondAttribute="top" constant="10" id="PMT-b7-8VG"/>
+                                            <constraint firstItem="PDM-z7-ZjQ" firstAttribute="leading" secondItem="ffg-tP-7cd" secondAttribute="trailing" constant="8" id="QXN-rf-f6c"/>
+                                            <constraint firstItem="ng8-I9-m3a" firstAttribute="leading" secondItem="zMD-vr-uUd" secondAttribute="leading" id="RXt-Sr-ov4"/>
+                                            <constraint firstAttribute="trailing" secondItem="39O-M1-rWR" secondAttribute="trailing" id="U0E-g8-T1e"/>
+                                            <constraint firstItem="Hum-D7-HYm" firstAttribute="centerX" secondItem="zMD-vr-uUd" secondAttribute="centerX" id="WOh-7e-9KH"/>
+                                            <constraint firstItem="ffg-tP-7cd" firstAttribute="leading" secondItem="zMD-vr-uUd" secondAttribute="leading" constant="16" id="bKO-F6-koY"/>
+                                            <constraint firstItem="PDM-z7-ZjQ" firstAttribute="centerY" secondItem="ffg-tP-7cd" secondAttribute="centerY" id="bm7-e8-sAT"/>
+                                            <constraint firstItem="39O-M1-rWR" firstAttribute="leading" secondItem="zMD-vr-uUd" secondAttribute="leading" id="dC4-ni-bAw"/>
+                                            <constraint firstItem="OP3-8u-uyD" firstAttribute="top" secondItem="Ww5-DY-Ixw" secondAttribute="bottom" constant="15" id="hde-TW-kvb"/>
+                                            <constraint firstItem="PDM-z7-ZjQ" firstAttribute="top" secondItem="39O-M1-rWR" secondAttribute="bottom" constant="8" id="jQD-b0-gKA"/>
+                                            <constraint firstItem="Ww5-DY-Ixw" firstAttribute="leading" secondItem="zMD-vr-uUd" secondAttribute="leading" constant="16" id="jeV-H4-sJb"/>
+                                            <constraint firstItem="la3-A8-ya9" firstAttribute="leading" secondItem="zMD-vr-uUd" secondAttribute="leading" id="mXd-fJ-Ccz"/>
+                                            <constraint firstItem="OP3-8u-uyD" firstAttribute="leading" secondItem="zMD-vr-uUd" secondAttribute="leading" constant="16" id="mma-uX-LYS"/>
+                                            <constraint firstItem="ng8-I9-m3a" firstAttribute="top" secondItem="ffg-tP-7cd" secondAttribute="bottom" constant="15" id="omQ-70-JMX"/>
+                                            <constraint firstAttribute="trailing" secondItem="Ww5-DY-Ixw" secondAttribute="trailing" constant="16" id="sTR-Yj-bcO"/>
+                                            <constraint firstAttribute="trailing" secondItem="OP3-8u-uyD" secondAttribute="trailing" constant="16" id="xYz-fg-bPX"/>
+                                            <constraint firstItem="la3-A8-ya9" firstAttribute="top" secondItem="OP3-8u-uyD" secondAttribute="bottom" constant="30" id="zOd-xt-DMb"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="zMD-vr-uUd" firstAttribute="leading" secondItem="ORp-Kd-N82" secondAttribute="leading" id="LzM-33-M6X"/>
+                                    <constraint firstItem="zMD-vr-uUd" firstAttribute="top" secondItem="ORp-Kd-N82" secondAttribute="top" id="dXP-yi-orp"/>
+                                    <constraint firstAttribute="bottom" secondItem="zMD-vr-uUd" secondAttribute="bottom" id="g0e-ym-alU"/>
+                                    <constraint firstAttribute="trailing" secondItem="zMD-vr-uUd" secondAttribute="trailing" id="jb0-Qg-BlE"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zMD-vr-uUd" firstAttribute="width" secondItem="Xb9-67-FPD" secondAttribute="width" id="0hi-qN-fAT"/>
+                            <constraint firstItem="ORp-Kd-N82" firstAttribute="top" secondItem="kCT-gC-P7j" secondAttribute="bottom" id="9BD-wd-DCg"/>
+                            <constraint firstItem="pqS-md-Ls7" firstAttribute="top" secondItem="ORp-Kd-N82" secondAttribute="bottom" id="Tbp-Hh-Lqm"/>
+                            <constraint firstItem="ORp-Kd-N82" firstAttribute="leading" secondItem="Xb9-67-FPD" secondAttribute="leading" id="lQG-0G-WRk"/>
+                            <constraint firstAttribute="trailing" secondItem="ORp-Kd-N82" secondAttribute="trailing" id="r9b-5M-SzZ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Expense" id="ksB-2T-U8F">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Y7S-7m-Amw">
+                            <connections>
+                                <action selector="cancelTapped:" destination="6yO-7N-kUo" id="nF6-EH-TWH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="amountField" destination="Ww5-DY-Ixw" id="gGB-Ox-jgT"/>
+                        <outlet property="cancelButton" destination="Y7S-7m-Amw" id="lPB-7p-rwd"/>
+                        <outlet property="categoryPicker" destination="la3-A8-ya9" id="SBR-bg-xn7"/>
+                        <outlet property="datePicker" destination="39O-M1-rWR" id="sXP-mm-Pz9"/>
+                        <outlet property="intervalPicker" destination="ng8-I9-m3a" id="uq1-v6-bir"/>
+                        <outlet property="memoField" destination="OP3-8u-uyD" id="ad9-PT-nmJ"/>
+                        <outlet property="owedLabel" destination="PDM-z7-ZjQ" id="X1s-wT-s3i"/>
+                        <outlet property="owedSlider" destination="ffg-tP-7cd" id="FIE-wC-yyp"/>
+                        <outlet property="personPicker" destination="gsl-qv-gzg" id="Csh-UF-s9J"/>
+                        <outlet property="saveButton" destination="Hum-D7-HYm" id="wGZ-Ue-zxk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q5j-NF-beh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2208.8000000000002" y="-81.409295352323838"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QO2-xC-EwK">

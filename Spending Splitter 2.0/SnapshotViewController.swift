@@ -67,18 +67,8 @@ class SnapshotViewController: UIViewController, CloudKitDelegate {
     }
     
     func failedWithError(error: Error) {
-        self.showError(error: error)
+        ErrorManager.present(error: error, onViewController: self)
     }
-    
-    func showError(error:Error) {
-        // Shop and show error
-        let errorAlert = UIAlertController.init(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-        let okAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default, handler: nil)
-        errorAlert.addAction(okAction)
-        print(error.localizedDescription)
-        self.present(errorAlert, animated: true, completion: nil)
-    }
-
 
 }
 
