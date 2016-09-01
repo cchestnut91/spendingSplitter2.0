@@ -9,7 +9,10 @@
 import UIKit
 import CloudKit
 
-class SnapshotViewController: UIViewController {
+class SnapshotViewController: UIViewController, CloudKitDelegate {
+    
+    @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
 
     @IBOutlet weak var whoOwesLabel: UILabel!
     @IBOutlet weak var amountOwedLabel: UILabel!
@@ -19,7 +22,13 @@ class SnapshotViewController: UIViewController {
     @IBOutlet weak var addExpenseButton: UIButton!
     @IBOutlet weak var budgetButton: UIButton!
     
+    var currencyFormatter: NumberFormatter?
+    
     override func viewDidLoad() {
+        
+        self.currencyFormatter = NumberFormatter()
+        self.currencyFormatter!.numberStyle = .currency
+        
         super.viewDidLoad()
         
     }
@@ -27,47 +36,38 @@ class SnapshotViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.loadResults()
+        CloudKitManager.sharedInstance.delegate = self
+        
+        // animate spinner
+        
+        CloudKitManager.updateExpenses()
     }
     
     @IBAction func addExpenseTapped(_ sender: AnyObject) {
         
-        let publicDB = CKContainer.default().publicCloudDatabase
-        let recordID = CKRecordID.init(recordName:NSUUID.init().uuidString)
-        let record = CKRecord.init(recordType: ExpenseKeys.expenseRecordType, recordID: recordID)
-        record.setValue(NSNumber.init(value: 56.00), forKey:ExpenseKeys.expenseAmountKey)
-        record.setValue(NSDate.init(), forKey: ExpenseKeys.expenseDateKey)
-        record.setValue("Groceries", forKey: ExpenseKeys.expenseCategoryKey)
-        record.setValue("Burgers", forKey: ExpenseKeys.expenseMemoKey)
-        record.setValue(NSNumber.init(value: 0.5), forKey: ExpenseKeys.expensePercentageOwedKey)
-        record.setValue(Spender.calvin, forKey: ExpenseKeys.expenseSpenderKey)
+        // Show add expense vc
+    }
+    
+    func didFinishTask() {
+        // Stop spinner?
+        self.infoView.isHidden = false
+        self.loadingSpinner.stopAnimating()
         
-        publicDB.save(record) { (record, error) in
-            if error != nil {
-                self.showError(error: error!)
-            } else {
-                self.loadResults()
-            }
+        let amtOwed = ExpenseManager.amountOwed()!
+        
+        if let whoOwes = ExpenseManager.whoOwes() {
+            self.whoOwesLabel.text = whoOwes + " Owes"
+            self.amountOwedLabel.text = self.currencyFormatter!.string(from: amtOwed)
+            self.amountOwedLabel.isHidden = false
+        } else {
+            self.whoOwesLabel.text = "All Even"
+            self.amountOwedLabel.isHidden = true
         }
+        
     }
     
-    func loadResults() {
-        let publicDB = CKContainer.default().publicCloudDatabase
-        let predicate = NSPredicate(value: true)
-        let query = CKQuery(recordType: ExpenseKeys.expenseRecordType, predicate: predicate)
-        publicDB.perform(query, inZoneWith: nil) { (records, error) in
-            if error == nil {
-                let expenseRecords = records
-                self.parseResults(results: expenseRecords!);
-            } else {
-                self.showError(error: error!)
-            }
-        }
-    }
-    
-    func parseResults(results:[CKRecord]) {
-        let userRecordID = results.first?.creatorUserRecordID
-        print(userRecordID?.recordName)
+    func failedWithError(error: Error) {
+        self.showError(error: error)
     }
     
     func showError(error:Error) {

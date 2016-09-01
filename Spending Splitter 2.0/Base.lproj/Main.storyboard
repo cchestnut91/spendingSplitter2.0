@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,52 +18,73 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin Owes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dy1-VA-fIR">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANp-J4-p81">
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
-                                <color key="textColor" red="0.97647058819999999" green="0.0" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uoa-ZI-by9">
-                                <state key="normal" title="Add Expense"/>
-                                <connections>
-                                    <action selector="addExpenseTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4AB-jx-frq"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin is $40 over budget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N5D-69-YhS">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rosalee is $40 under budget" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLD-LS-cMO">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Qm-GN-ohI">
-                                <state key="normal" title="Budget"/>
-                            </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="REw-TJ-x1g">
+                                <frame key="frameInset" minX="177" minY="323" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="80Q-KH-Zbm">
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin Owes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dy1-VA-fIR">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANp-J4-p81">
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
+                                        <color key="textColor" red="0.97647058819999999" green="0.0" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uoa-ZI-by9">
+                                        <state key="normal" title="Add Expense"/>
+                                        <connections>
+                                            <action selector="addExpenseTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4AB-jx-frq"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin is $40 over budget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N5D-69-YhS">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rosalee is $40 under budget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLD-LS-cMO">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Qm-GN-ohI">
+                                        <state key="normal" title="Budget"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="N5D-69-YhS" firstAttribute="centerX" secondItem="80Q-KH-Zbm" secondAttribute="centerX" id="1AH-3n-yE4"/>
+                                    <constraint firstAttribute="trailing" secondItem="N5D-69-YhS" secondAttribute="trailing" id="4Uy-In-jxs"/>
+                                    <constraint firstAttribute="trailing" secondItem="ANp-J4-p81" secondAttribute="trailing" id="7LQ-uN-vmD"/>
+                                    <constraint firstAttribute="trailing" secondItem="dy1-VA-fIR" secondAttribute="trailing" id="Do7-SM-Zi6"/>
+                                    <constraint firstItem="Uoa-ZI-by9" firstAttribute="top" secondItem="ANp-J4-p81" secondAttribute="bottom" constant="35" id="EPV-q0-gO0"/>
+                                    <constraint firstItem="GLD-LS-cMO" firstAttribute="leading" secondItem="80Q-KH-Zbm" secondAttribute="leading" id="FDO-VZ-KfA"/>
+                                    <constraint firstItem="ANp-J4-p81" firstAttribute="centerX" secondItem="80Q-KH-Zbm" secondAttribute="centerX" id="GKV-dn-GwH"/>
+                                    <constraint firstItem="dy1-VA-fIR" firstAttribute="leading" secondItem="80Q-KH-Zbm" secondAttribute="leading" id="NvF-ch-jKN"/>
+                                    <constraint firstItem="N5D-69-YhS" firstAttribute="leading" secondItem="80Q-KH-Zbm" secondAttribute="leading" id="Oka-Sz-z02"/>
+                                    <constraint firstItem="Uoa-ZI-by9" firstAttribute="centerX" secondItem="80Q-KH-Zbm" secondAttribute="centerX" id="Z1x-X3-pbX"/>
+                                    <constraint firstItem="7Qm-GN-ohI" firstAttribute="top" secondItem="GLD-LS-cMO" secondAttribute="bottom" constant="50" id="baT-As-DLD"/>
+                                    <constraint firstItem="dy1-VA-fIR" firstAttribute="top" secondItem="80Q-KH-Zbm" secondAttribute="top" constant="50" id="e5B-WN-gZO"/>
+                                    <constraint firstItem="N5D-69-YhS" firstAttribute="top" secondItem="Uoa-ZI-by9" secondAttribute="bottom" constant="100" id="eew-SB-ICk"/>
+                                    <constraint firstItem="dy1-VA-fIR" firstAttribute="centerX" secondItem="80Q-KH-Zbm" secondAttribute="centerX" id="gvS-eU-kY5"/>
+                                    <constraint firstItem="GLD-LS-cMO" firstAttribute="top" secondItem="N5D-69-YhS" secondAttribute="bottom" constant="25" id="jQv-xI-aBd"/>
+                                    <constraint firstAttribute="trailing" secondItem="GLD-LS-cMO" secondAttribute="trailing" id="kxi-Ek-yEi"/>
+                                    <constraint firstItem="7Qm-GN-ohI" firstAttribute="centerX" secondItem="80Q-KH-Zbm" secondAttribute="centerX" id="mGG-43-fUx"/>
+                                    <constraint firstItem="ANp-J4-p81" firstAttribute="leading" secondItem="80Q-KH-Zbm" secondAttribute="leading" id="wbx-IB-rzd"/>
+                                    <constraint firstItem="GLD-LS-cMO" firstAttribute="centerX" secondItem="80Q-KH-Zbm" secondAttribute="centerX" id="wzN-Vb-lNe"/>
+                                    <constraint firstItem="ANp-J4-p81" firstAttribute="top" secondItem="dy1-VA-fIR" secondAttribute="bottom" constant="16" id="x2d-6Z-Wzp"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="dy1-VA-fIR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="1iD-aM-8bs"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="N5D-69-YhS" secondAttribute="trailing" id="1iF-CR-wD8"/>
-                            <constraint firstItem="GLD-LS-cMO" firstAttribute="top" secondItem="N5D-69-YhS" secondAttribute="bottom" constant="50" id="C6N-aK-S9u"/>
-                            <constraint firstItem="Uoa-ZI-by9" firstAttribute="top" secondItem="ANp-J4-p81" secondAttribute="bottom" constant="44" id="Ghu-2a-ANV"/>
-                            <constraint firstItem="GLD-LS-cMO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Hct-2i-j6E"/>
-                            <constraint firstItem="N5D-69-YhS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="MN4-qi-mtR"/>
-                            <constraint firstItem="dy1-VA-fIR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QJb-b6-kiJ"/>
-                            <constraint firstItem="7Qm-GN-ohI" firstAttribute="top" secondItem="GLD-LS-cMO" secondAttribute="bottom" constant="50" id="h7D-TP-imF"/>
-                            <constraint firstItem="N5D-69-YhS" firstAttribute="top" secondItem="Uoa-ZI-by9" secondAttribute="bottom" constant="44" id="rGd-zO-UXj"/>
-                            <constraint firstItem="Uoa-ZI-by9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="s56-wK-gNd"/>
-                            <constraint firstItem="7Qm-GN-ohI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uPi-Hd-3IH"/>
-                            <constraint firstItem="ANp-J4-p81" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="uzl-vi-u0W"/>
-                            <constraint firstItem="ANp-J4-p81" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="wvm-8Y-RJF"/>
-                            <constraint firstItem="ANp-J4-p81" firstAttribute="top" secondItem="dy1-VA-fIR" secondAttribute="bottom" constant="25" id="xle-Be-VvW"/>
+                            <constraint firstItem="80Q-KH-Zbm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="FlY-IH-eGr"/>
+                            <constraint firstItem="80Q-KH-Zbm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="bai-Vn-PO3"/>
+                            <constraint firstAttribute="trailing" secondItem="80Q-KH-Zbm" secondAttribute="trailing" id="jAO-Cf-PeV"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="80Q-KH-Zbm" secondAttribute="bottom" id="s3c-qH-Mpy"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Snapshot" id="Cva-rb-60E"/>
@@ -73,6 +93,8 @@
                         <outlet property="amountOwedLabel" destination="ANp-J4-p81" id="xqD-jI-36Y"/>
                         <outlet property="budgetButton" destination="7Qm-GN-ohI" id="ctA-8w-BS5"/>
                         <outlet property="calvinBudgetStatusLabel" destination="N5D-69-YhS" id="GYf-8K-ykn"/>
+                        <outlet property="infoView" destination="80Q-KH-Zbm" id="OxQ-Zy-mpT"/>
+                        <outlet property="loadingSpinner" destination="REw-TJ-x1g" id="RFO-3Z-fZf"/>
                         <outlet property="rosieBudgetStatusLabel" destination="GLD-LS-cMO" id="wRf-75-sjc"/>
                         <outlet property="whoOwesLabel" destination="dy1-VA-fIR" id="7XT-Bx-eBh"/>
                     </connections>
