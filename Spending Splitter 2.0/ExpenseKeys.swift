@@ -24,9 +24,14 @@ class ExpenseKeys : NSObject {
     static let expenseRecurringKey = "kExpenseRecurring"
     static let expenseIntervalKey = "kExpenseInterval"
     
+    static let intervalDaily = "Daily"
+    static let intervalWeekdays = "Weekdays"
     static let intervalWeekly = "Weekly"
     static let intervalBiWeekly = "Biweekly"
     static let intervalMonthly = "Monthly"
     static let intervalYearly = "Yearly"
+    
+    static let newRecordNotificationKey = "kNotificationNewRecord"
+    static let delRecordNotificationKey = "kNotificationDeletedRecord"
     
 }

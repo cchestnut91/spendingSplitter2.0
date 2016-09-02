@@ -43,7 +43,19 @@ class CloudKitManager : NSObject {
         
         CloudKitManager.sharedInstance.publicDB.save(record) { (record, error) in
             if error == nil {
-                self.updateExpenses()
+                if let recurringRecord = expense.recurringRecord() {
+                    CloudKitManager.sharedInstance.publicDB.save(recurringRecord, completionHandler: { (savedRecurring, error) in
+                        if error == nil {
+                            CloudKitManager.sharedInstance.delegate?.didFinishTask()
+                        } else {
+                            CloudKitManager.sharedInstance.delegate?.failedWithError(error: error!)
+                        }
+                    })
+                } else {
+                    CloudKitManager.sharedInstance.expenses.append(expense)
+                    CloudKitManager.sortExpenses()
+                    CloudKitManager.sharedInstance.delegate?.didFinishTask()
+                }
             } else {
                 CloudKitManager.sharedInstance.delegate?.failedWithError(error: error!)
             }
@@ -59,16 +71,19 @@ class CloudKitManager : NSObject {
         
         CloudKitManager.sharedInstance.publicDB.save(record) { (record, error) in
             if error != nil {
-                self.updateExpenses()
+                CloudKitManager.sharedInstance.expenses.remove(at: CloudKitManager.sharedInstance.expenses.index(of: expense)!)
+                CloudKitManager.sharedInstance.delegate?.didFinishTask()
             } else {
                 CloudKitManager.sharedInstance.delegate?.failedWithError(error: error!)
             }
         }
     }
     
+    class func sortExpenses() {
+        CloudKitManager.sharedInstance.expenses.sort(by: { $0.date?.compare($1.date as! Date) == ComparisonResult.orderedAscending })
+    }
+    
     class func updateExpenses() {
-        
-        
         
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: ExpenseKeys.expenseRecordType, predicate: predicate)
@@ -91,7 +106,7 @@ class CloudKitManager : NSObject {
             CloudKitManager.sharedInstance.expenses.append(expense)
         }
         
-        CloudKitManager.sharedInstance.expenses.sort(by: { $0.date?.compare($1.date as! Date) == ComparisonResult.orderedAscending })
+        CloudKitManager.sortExpenses()
         
         self.checkRecurring()
     }
@@ -135,8 +150,16 @@ class CloudKitManager : NSObject {
             
             var components = DateComponents()
             
-            if recurringExpense.interval == ExpenseKeys.intervalWeekly {
-            
+            if recurringExpense.interval == ExpenseKeys.intervalDaily {
+                
+                components.setValue(1, for: Calendar.Component.day)
+                
+            } else if recurringExpense.interval == ExpenseKeys.intervalWeekdays {
+                
+                components.setValue(1, for: Calendar.Component.weekday)
+                
+            } else if recurringExpense.interval == ExpenseKeys.intervalWeekly {
+                
                 components.setValue(1, for: Calendar.Component.weekOfYear)
                 
             } else if recurringExpense.interval == ExpenseKeys.intervalBiWeekly {
@@ -155,14 +178,18 @@ class CloudKitManager : NSObject {
             
             let calendar = Calendar.current
             
-            let nextOccurance = calendar.date(byAdding: components, to: lastExpense.date as! Date)
+            var nextOccurance = calendar.date(byAdding: components, to: lastExpense.date as! Date)!
             
-            if nextOccurance?.compare(Date()) != ComparisonResult.orderedDescending {
-                newExpenses.append(recurringExpense.generateNewRecord(date: nextOccurance!))
+            while nextOccurance.compare(Date()) != ComparisonResult.orderedDescending {
+                let newRecord = recurringExpense.generateNewRecord(date: nextOccurance)
+                newExpenses.append(newRecord)
+                CloudKitManager.sharedInstance.expenses.append(Expense.init(record: newRecord))
+                nextOccurance = calendar.date(byAdding: components, to: nextOccurance)!
             }
             
-            
         }
+        
+        CloudKitManager.sortExpenses()
         
         if newExpenses.count == 0 {
             self.loadDeletedRecords()
@@ -178,7 +205,8 @@ class CloudKitManager : NSObject {
             if error != nil {
                 CloudKitManager.sharedInstance.delegate?.failedWithError(error: error!)
             } else {
-                self.updateExpenses()
+                
+                self.loadDeletedRecords()
             }
         }
         
@@ -223,9 +251,49 @@ class CloudKitManager : NSObject {
     
     class func wrapUp() {
         
-        CloudKitManager.sharedInstance.expenses.sort(by: { $0.date?.compare($1.date as! Date) == ComparisonResult.orderedAscending })
+        CloudKitManager.sortExpenses()
         
         CloudKitManager.sharedInstance.delegate?.didFinishTask()
+    }
+    
+    class func hasRegisteredSubscriptions() -> Bool! {
+        if let bo = UserDefaults.standard.value(forKey: "RegisteredSubscriptions") as? Bool {
+            return bo
+        }
+        return false
+    }
+    
+    class func registerSubscriptions() {
+        let predicate = NSPredicate(value: true)
+        let newRecordSubscription = CKQuerySubscription(recordType: ExpenseKeys.expenseRecordType, predicate: predicate, options: CKQuerySubscriptionOptions.firesOnRecordCreation)
+        let newRecordInfo = CKNotificationInfo()
+        
+        newRecordInfo.alertLocalizationKey = ExpenseKeys.newRecordNotificationKey
+        
+        newRecordSubscription.notificationInfo = newRecordInfo
+        
+        let deletedSubscription = CKQuerySubscription(recordType: ExpenseKeys.deletedExpenseType, predicate: predicate, options: CKQuerySubscriptionOptions.firesOnRecordCreation)
+        let delRecordInfo = CKNotificationInfo()
+        
+        delRecordInfo.alertLocalizationKey = ExpenseKeys.delRecordNotificationKey
+        
+        deletedSubscription.notificationInfo = delRecordInfo
+        
+        sharedInstance.publicDB.save(newRecordSubscription) { (newSub, error) in
+            if error == nil {
+                sharedInstance.publicDB.save(deletedSubscription, completionHandler: { (delSub, delError) in
+                    if error == nil {
+                        UserDefaults.standard.set(true, forKey: "RegisteredSubscriptions")
+                        UserDefaults.standard.synchronize()
+                        sharedInstance.delegate?.didFinishTask()
+                    } else {
+                        sharedInstance.delegate?.failedWithError(error: delError!)
+                    }
+                })
+            } else {
+                sharedInstance.delegate?.failedWithError(error: error!)
+            }
+        }
     }
     
 }

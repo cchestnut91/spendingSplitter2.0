@@ -18,9 +18,14 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var memoField: UITextField!
     @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var owedSlider: UISlider!
-    @IBOutlet weak var owedLabel: UILabel!
+    @IBOutlet weak var owedPicker: UISegmentedControl!
     @IBOutlet weak var intervalPicker: UIPickerView!
+    
+    @IBOutlet weak var categoryExpandButton: UIButton!
+    @IBOutlet weak var dateExpandButton: UIButton!
+    
+    @IBOutlet weak var categoryPickerHeight: NSLayoutConstraint!
+    @IBOutlet weak var datePickerHeight: NSLayoutConstraint!
     
     var hasEdited: Bool?
     var newExpense: Expense?
@@ -32,6 +37,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)]
         
         self.nf = NumberFormatter()
         self.nf!.numberStyle = .percent
@@ -56,10 +63,6 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         self.datePicker.addTarget(self, action: #selector(AddExpenseViewController.dateChanged), for: UIControlEvents.valueChanged)
         
-        self.owedSlider.addTarget(self, action: #selector(AddExpenseViewController.owedSliderChanged(sender:)), for: UIControlEvents.valueChanged)
-        
-        self.owedSliderChanged(sender: self.owedSlider)
-        
         self.intervalPicker.delegate = self
         self.intervalPicker.dataSource = self
     }
@@ -83,9 +86,43 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
+    @IBAction func categoryExpandTapped(_ sender: AnyObject) {
+        self.resizePicker(name: "Category")
+    }
+    
+    @IBAction func dateExpandTapped(_ sender: AnyObject) {
+        self.resizePicker(name: "Date")
+    }
+    
+    func resizePicker(name: String?) {
+        
+        self.amountField.resignFirstResponder()
+        self.memoField.resignFirstResponder()
+        
+        if name == "Category" {
+            self.categoryExpandButton.isHidden = true
+            self.categoryPickerHeight.constant = 155
+        } else {
+            self.categoryExpandButton.isHidden = false
+            self.categoryPickerHeight.constant = 55
+        }
+        if name == "Date" {
+            self.dateExpandButton.isHidden = true
+            self.datePickerHeight.constant = 155
+        } else {
+            self.dateExpandButton.isHidden = false
+            self.datePickerHeight.constant = 55
+        }
+        
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
     func selectedPersonChanged() {
         // Anything else to change in the UI?
         self.hasEdited = true
+        self.resizePicker(name: nil)
         if self.personPicker.selectedSegmentIndex == 0 {
             self.newExpense?.spender = Spender.calvin
         } else {
@@ -95,15 +132,89 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     func dateChanged() {
         self.hasEdited = true
+        self.resizePicker(name: "Date")
         self.newExpense?.date = self.datePicker.date as NSDate
     }
     
-    func owedSliderChanged(sender: UISlider?) {
-        if sender != nil {
-            self.hasEdited = true
+    @IBAction func owedControlTapped(_ sender: AnyObject) {
+        self.hasEdited = true;
+        self.resizePicker(name: nil)
+        let initial = 0.25
+        let multiply = Double(self.owedPicker.selectedSegmentIndex)
+        let product = initial * multiply
+        let value = NSNumber.init(value: product)
+        if value.doubleValue > 1.0 {
+            self.showOwedAlert()
+        } else {
+            self.newExpense?.percentageOwed = value
         }
-        self.newExpense?.percentageOwed = self.owedSlider.value as NSNumber
-        self.owedLabel.text = nf?.string(from: (self.newExpense?.percentageOwed)!)
+    }
+    
+    func showOwedAlert() {
+        let percentageAlert = UIAlertController.init(title: "Amount Owed", message: "How would you like to enter the amount owed", preferredStyle: UIAlertControllerStyle.alert)
+        let percentAction = UIAlertAction.init(title: "Percentage", style: UIAlertActionStyle.default) { (action) in
+            let percentAlert = UIAlertController.init(title: "Percentage", message: "Enter the percentage you are owed", preferredStyle: UIAlertControllerStyle.alert)
+            percentAlert.addTextField(configurationHandler: { (textField) in
+                textField.keyboardType = .numberPad
+                textField.placeholder = "Percentage Owed"
+            })
+            let saveAction = UIAlertAction.init(title: "Save", style: UIAlertActionStyle.default, handler: { (action) in
+                var errorText: String?
+                let text = percentAlert.textFields?.first?.text
+                if let doubleValue = Double(text!) {
+                    if doubleValue > 100 || doubleValue < 0 {
+                        errorText = "Invalid Value"
+                    } else {
+                        let numValue = NSNumber.init(value: ( doubleValue / 100.0))
+                        self.newExpense?.percentageOwed = numValue
+                    }
+                } else {
+                    errorText = "Invalid Value"
+                }
+                if errorText != nil {
+                    self.showError(text: errorText!)
+                }
+            })
+            percentAlert.addAction(saveAction)
+            percentAlert.addAction(ErrorManager.cancelAction())
+            self.present(percentAlert, animated: true, completion: nil)
+        }
+        let valueAction = UIAlertAction.init(title: "Amount", style: UIAlertActionStyle.default) { (action) in
+            let valueAlert = UIAlertController.init(title: "Value", message: "Enter the amount you are owed", preferredStyle: UIAlertControllerStyle.alert)
+            valueAlert.addTextField(configurationHandler: { (textField) in
+                textField.keyboardType = .decimalPad
+                textField.placeholder = "Amount Owed"
+            })
+            let saveAction = UIAlertAction.init(title: "Save", style: UIAlertActionStyle.default, handler: { (action) in
+                var errorText: String?
+                let text = valueAlert.textFields?.first?.text
+                if let doubleValue = Double(text!) {
+                    if doubleValue < 0.0 {
+                        errorText = "Invalid Value"
+                    } else {
+                        self.newExpense?.amountOwed = doubleValue
+                    }
+                } else {
+                    errorText = "Invalid Value"
+                }
+                if errorText != nil {
+                    self.showError(text: errorText!)
+                }
+            })
+            valueAlert.addAction(saveAction)
+            valueAlert.addAction(ErrorManager.cancelAction())
+            self.present(valueAlert, animated: true, completion: nil)
+        }
+        
+        percentageAlert.addAction(percentAction)
+        percentageAlert.addAction(valueAction)
+        percentageAlert.addAction(ErrorManager.cancelAction())
+        
+        self.present(percentageAlert, animated: true, completion: nil)
+    }
+    
+    func showError(text: String) {
+        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -141,6 +252,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.hasEdited = true
         if pickerView == self.categoryPicker {
+            self.resizePicker(name: "Category")
             if row == 0 {
                 self.newExpense?.category = nil
             } else if row == CategoryManager.categories().count + 1 {
@@ -173,6 +285,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 self.newExpense?.category = self.pickerView(pickerView, titleForRow: row, forComponent: component)
             }
         } else if pickerView == self.intervalPicker {
+            self.resizePicker(name: "Interval")
             self.newExpense?.recurring = row != 0
             if (self.newExpense?.recurring!)! {
                 self.newExpense?.interval = self.pickerView(pickerView, titleForRow: row, forComponent: component)
@@ -209,12 +322,23 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         return true
     }
     
+    func validateExpense() -> String? {
+        
+        return self.newExpense?.validate()
+    }
+    
     @IBAction func saveTapped(_ sender: AnyObject) {
-        // if expense if populated
-        self.savingAlert = UIAlertController.init(title: "Please Wait", message: "Saving expense...", preferredStyle: UIAlertControllerStyle.alert)
-        self.present(self.savingAlert!, animated: true, completion: nil)
-        CloudKitManager.sharedInstance.delegate = self
-        CloudKitManager.add(expense: self.newExpense!)
+        
+        if let error = self.validateExpense() {
+            let errorAlert = UIAlertController.init(title: "Error Adding Expense", message: error, preferredStyle: UIAlertControllerStyle.alert)
+            errorAlert.addAction(ErrorManager.okAction())
+            self.present(errorAlert, animated: true, completion: nil)
+        } else {
+            self.savingAlert = UIAlertController.init(title: "Please Wait", message: "Saving expense...", preferredStyle: UIAlertControllerStyle.alert)
+            self.present(self.savingAlert!, animated: true, completion: nil)
+            CloudKitManager.sharedInstance.delegate = self
+            CloudKitManager.add(expense: self.newExpense!)
+        }
     }
     
     func didFinishTask() {

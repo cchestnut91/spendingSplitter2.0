@@ -27,6 +27,10 @@ class ExpenseManager {
         
     }
     
+    class func amountOwedToDisplay() -> NSNumber! {
+        return NSNumber.init(value: abs(ExpenseManager.amountOwed().doubleValue))
+    }
+    
     class func whoOwes() -> String? {
         
         let amt = self.amountOwed().doubleValue

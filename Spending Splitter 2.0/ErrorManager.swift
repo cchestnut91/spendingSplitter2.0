@@ -19,4 +19,12 @@ class ErrorManager: NSObject {
         onViewController.present(errorAlert, animated: true, completion: nil)
     }
     
+    class func okAction() -> UIAlertAction {
+        return UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+    }
+    
+    class func cancelAction() -> UIAlertAction {
+        return UIAlertAction.init(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+    }
+    
 }

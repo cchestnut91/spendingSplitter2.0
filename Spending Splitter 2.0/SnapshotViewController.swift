@@ -8,6 +8,7 @@
 
 import UIKit
 import CloudKit
+import UserNotifications
 
 class SnapshotViewController: UIViewController, CloudKitDelegate {
     
@@ -26,26 +27,22 @@ class SnapshotViewController: UIViewController, CloudKitDelegate {
     
     override func viewDidLoad() {
         
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)]
+        
         self.currencyFormatter = NumberFormatter()
         self.currencyFormatter!.numberStyle = .currency
         
         super.viewDidLoad()
         
+        CloudKitManager.sharedInstance.delegate = self
+        
+        CloudKitManager.updateExpenses()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        CloudKitManager.sharedInstance.delegate = self
-        
-        // animate spinner
-        
-        CloudKitManager.updateExpenses()
-    }
-    
-    @IBAction func addExpenseTapped(_ sender: AnyObject) {
-        
-        // Show add expense vc
+        reloadLabels()
     }
     
     func didFinishTask() {
@@ -53,7 +50,31 @@ class SnapshotViewController: UIViewController, CloudKitDelegate {
         self.infoView.isHidden = false
         self.loadingSpinner.stopAnimating()
         
-        let amtOwed = ExpenseManager.amountOwed()!
+        reloadLabels()
+        
+        if CloudKitManager.hasRegisteredSubscriptions() == false {
+            
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge])
+            { (granted, error) in
+                if granted == true{
+                    CloudKitManager.registerSubscriptions()
+                }
+                if let error = error {
+                    ErrorManager.present(error: error, onViewController: self)
+                }
+            }
+            
+        }
+        
+    }
+    
+    func failedWithError(error: Error) {
+        ErrorManager.present(error: error, onViewController: self)
+    }
+    
+    func reloadLabels() {
+        
+        let amtOwed = ExpenseManager.amountOwedToDisplay()!
         
         if let whoOwes = ExpenseManager.whoOwes() {
             self.whoOwesLabel.text = whoOwes + " Owes"
@@ -63,11 +84,6 @@ class SnapshotViewController: UIViewController, CloudKitDelegate {
             self.whoOwesLabel.text = "All Even"
             self.amountOwedLabel.isHidden = true
         }
-        
-    }
-    
-    func failedWithError(error: Error) {
-        ErrorManager.present(error: error, onViewController: self)
     }
 
 }

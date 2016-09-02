@@ -17,6 +17,7 @@ class Expense : NSObject {
     var date : NSDate?
     var memo : String?
     var percentageOwed : NSNumber?
+    var amountOwed : Double?
     var category : String?
     var spender : String?
     var recurring : Bool?
@@ -80,6 +81,48 @@ class Expense : NSObject {
         record.setValue(self.interval, forKey: ExpenseKeys.expenseIntervalKey)
         
         return record;
+    }
+    
+    func validate() -> String? {
+        
+        if self.identifier == nil {
+            return "Identifier is missing"
+        }
+        if self.expenseID == nil {
+            return "ExpenseID is missing"
+        }
+        if self.amount == nil {
+            return "Amount is missing"
+        }
+        if self.amount == 0.0 {
+            return "Amount cannot be empty"
+        }
+        if self.date == nil {
+            return "Date is missing"
+        }
+        if self.memo?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) == "" {
+            return "Memo is empty or invalid"
+        }
+        if self.percentageOwed == nil && self.amountOwed == nil {
+            return "Amount Owed is empty"
+        }
+        if self.amountOwed != nil && self.percentageOwed == nil {
+            self.percentageOwed = NSNumber.init(value: (self.amount?.doubleValue.divided(by: self.amountOwed!))!)
+        }
+        if self.percentageOwed!.doubleValue < 0.0 || self.percentageOwed!.doubleValue > 1 {
+            return "Percentage owed is invalid"
+        }
+        if self.category == nil || category == "" {
+            return "Category is missing"
+        }
+        if self.spender == nil {
+            return "Spender is missing"
+        }
+        if self.recurring! && self.interval == nil {
+            return "Interval not specified"
+        }
+        
+        return nil
     }
     
 }

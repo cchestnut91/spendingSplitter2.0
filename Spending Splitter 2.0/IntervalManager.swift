@@ -11,7 +11,7 @@ import Foundation
 class IntervalManager: NSObject {
     
     class func intervals() -> [String]! {
-        return [ExpenseKeys.intervalWeekly, ExpenseKeys.intervalBiWeekly, ExpenseKeys.intervalMonthly, ExpenseKeys.intervalYearly]
+        return [ ExpenseKeys.intervalDaily, ExpenseKeys.intervalWeekdays, ExpenseKeys.intervalWeekly, ExpenseKeys.intervalBiWeekly, ExpenseKeys.intervalMonthly, ExpenseKeys.intervalYearly]
     }
     
 }
