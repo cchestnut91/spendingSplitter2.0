@@ -52,18 +52,22 @@ class SnapshotViewController: UIViewController, CloudKitDelegate {
         
         reloadLabels()
         
-        if CloudKitManager.hasRegisteredSubscriptions() == false {
-            
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge])
-            { (granted, error) in
-                if granted == true{
-                    CloudKitManager.registerSubscriptions()
+        CloudKitManager.sharedInstance.publicDB.fetchAllSubscriptions { (subscriptions, error) in
+            if error == nil {
+                if subscriptions?.count == 0 {
+                    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge])
+                    { (granted, reqError) in
+                        if granted == true{
+                            CloudKitManager.registerSubscriptions()
+                        }
+                        if let reqestError = reqError {
+                            ErrorManager.present(error: reqestError, onViewController: self)
+                        }
+                    }
                 }
-                if let error = error {
-                    ErrorManager.present(error: error, onViewController: self)
-                }
+            } else {
+                ErrorManager.present(error: error!, onViewController: self)
             }
-            
         }
         
     }
@@ -74,15 +78,17 @@ class SnapshotViewController: UIViewController, CloudKitDelegate {
     
     func reloadLabels() {
         
-        let amtOwed = ExpenseManager.amountOwedToDisplay()!
-        
-        if let whoOwes = ExpenseManager.whoOwes() {
-            self.whoOwesLabel.text = whoOwes + " Owes"
-            self.amountOwedLabel.text = self.currencyFormatter!.string(from: amtOwed)
-            self.amountOwedLabel.isHidden = false
-        } else {
-            self.whoOwesLabel.text = "All Even"
-            self.amountOwedLabel.isHidden = true
+        DispatchQueue.main.async {
+            let amtOwed = ExpenseManager.amountOwedToDisplay()!
+            
+            if let whoOwes = ExpenseManager.whoOwes() {
+                self.whoOwesLabel.text = whoOwes + " Owes"
+                self.amountOwedLabel.text = self.currencyFormatter!.string(from: amtOwed)
+                self.amountOwedLabel.isHidden = false
+            } else {
+                self.whoOwesLabel.text = "All Even"
+                self.amountOwedLabel.isHidden = true
+            }
         }
     }
 

@@ -23,9 +23,11 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     @IBOutlet weak var categoryExpandButton: UIButton!
     @IBOutlet weak var dateExpandButton: UIButton!
+    @IBOutlet weak var intervalExpandButton: UIButton!
     
     @IBOutlet weak var categoryPickerHeight: NSLayoutConstraint!
     @IBOutlet weak var datePickerHeight: NSLayoutConstraint!
+    @IBOutlet weak var intervalPickerHeight: NSLayoutConstraint!
     
     var hasEdited: Bool?
     var newExpense: Expense?
@@ -65,10 +67,22 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         self.intervalPicker.delegate = self
         self.intervalPicker.dataSource = self
+        
+        let toolbar = UIToolbar.init(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: UIScreen.main.bounds.size.width, height: 44.0)))
+        let space = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done = UIBarButtonItem.init(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(AddExpenseViewController.doneTapped))
+        
+        toolbar.setItems([space, done], animated: true)
+        
+        self.amountField.inputAccessoryView = toolbar
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    func doneTapped() {
+        self.resizePicker(name: nil)
     }
     
     @IBAction func cancelTapped(_ sender: AnyObject) {
@@ -94,10 +108,11 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.resizePicker(name: "Date")
     }
     
+    @IBAction func intervalExpandTapped(_ sender: AnyObject) {
+        self.resizePicker(name: "Interval")
+    }
+    
     func resizePicker(name: String?) {
-        
-        self.amountField.resignFirstResponder()
-        self.memoField.resignFirstResponder()
         
         if name == "Category" {
             self.categoryExpandButton.isHidden = true
@@ -112,6 +127,20 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         } else {
             self.dateExpandButton.isHidden = false
             self.datePickerHeight.constant = 55
+        }
+        if name == "Interval" {
+            self.intervalExpandButton.isHidden = true
+            self.intervalPickerHeight.constant = 155
+        } else {
+            self.intervalExpandButton.isHidden = false
+            self.intervalPickerHeight.constant = 55
+        }
+        
+        if name != "Amount" {
+            self.amountField.resignFirstResponder()
+        }
+        if name != "Memo" {
+            self.memoField.resignFirstResponder()
         }
         
         UIView.animate(withDuration: 0.5) {
@@ -299,9 +328,12 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.hasEdited = true
         if textField == self.amountField {
+            self.resizePicker(name: "Amount")
             if (textField.text?.hasPrefix("$"))! {
                 textField.text = textField.text?.replacingOccurrences(of: "$", with: "")
             }
+        } else if textField == self.memoField {
+            self.resizePicker(name: "Memo")
         }
     }
     

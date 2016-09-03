@@ -221,7 +221,11 @@
                                                 <color key="textColor" red="1" green="0.98823529409999999" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tco-hr-Tye"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tco-hr-Tye">
+                                                <connections>
+                                                    <action selector="intervalExpandTapped:" destination="6yO-7N-kUo" eventType="touchUpInside" id="4KE-C3-odG"/>
+                                                </connections>
+                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Owed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNs-Ca-t4l">
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.98823529409999999" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -330,7 +334,9 @@
                         <outlet property="dateExpandButton" destination="g0P-W5-MJv" id="8hc-dJ-QWB"/>
                         <outlet property="datePicker" destination="39O-M1-rWR" id="sXP-mm-Pz9"/>
                         <outlet property="datePickerHeight" destination="jP5-XD-EbV" id="5Iy-RR-1kX"/>
+                        <outlet property="intervalExpandButton" destination="Tco-hr-Tye" id="nv8-YD-tLU"/>
                         <outlet property="intervalPicker" destination="ng8-I9-m3a" id="uq1-v6-bir"/>
+                        <outlet property="intervalPickerHeight" destination="IOk-n4-DAR" id="Obb-sO-WcT"/>
                         <outlet property="memoField" destination="OP3-8u-uyD" id="ad9-PT-nmJ"/>
                         <outlet property="owedPicker" destination="bi2-j0-E8j" id="ZxL-eg-3mf"/>
                         <outlet property="personPicker" destination="gsl-qv-gzg" id="Csh-UF-s9J"/>
