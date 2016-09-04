@@ -9,9 +9,19 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>Today's Split.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>3E0A8FB81D7BB7FD008E3B9D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3EF8F86D1D76705600324861</key>
 		<dict>
 			<key>primary</key>

@@ -10,7 +10,7 @@ import UIKit
 import CloudKit
 import UserNotifications
 
-class SnapshotViewController: UIViewController, CloudKitDelegate {
+class SnapshotViewController: UIViewController {
     
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
@@ -27,16 +27,21 @@ class SnapshotViewController: UIViewController, CloudKitDelegate {
     
     override func viewDidLoad() {
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:#colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)]
-        
         self.currencyFormatter = NumberFormatter()
         self.currencyFormatter!.numberStyle = .currency
         
         super.viewDidLoad()
         
-        CloudKitManager.sharedInstance.delegate = self
-        
-        CloudKitManager.updateExpenses()
+        CloudKitManager.updateExpenses(onSuccess: { 
+            self.infoView.isHidden = false
+            self.loadingSpinner.stopAnimating()
+            
+            self.reloadLabels()
+            self.loadSubscriptions()
+            
+            }, onError: {(error) in
+                ErrorManager.present(error: error, onViewController: self)
+        })
         
     }
     
@@ -45,12 +50,7 @@ class SnapshotViewController: UIViewController, CloudKitDelegate {
         reloadLabels()
     }
     
-    func didFinishTask() {
-        // Stop spinner?
-        self.infoView.isHidden = false
-        self.loadingSpinner.stopAnimating()
-        
-        reloadLabels()
+    func loadSubscriptions() {
         
         CloudKitManager.sharedInstance.publicDB.fetchAllSubscriptions { (subscriptions, error) in
             if error == nil {
@@ -58,7 +58,11 @@ class SnapshotViewController: UIViewController, CloudKitDelegate {
                     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge])
                     { (granted, reqError) in
                         if granted == true{
-                            CloudKitManager.registerSubscriptions()
+                            CloudKitManager.registerSubscriptions(onSuccess: {
+                                NSLog("Success")
+                                }, onError: { (registerError) in
+                                    ErrorManager.present(error: registerError, onViewController: self)
+                            })
                         }
                         if let reqestError = reqError {
                             ErrorManager.present(error: reqestError, onViewController: self)
@@ -69,7 +73,14 @@ class SnapshotViewController: UIViewController, CloudKitDelegate {
                 ErrorManager.present(error: error!, onViewController: self)
             }
         }
+    }
+    
+    func didFinishTask() {
+        // Stop spinner?
+        self.infoView.isHidden = false
+        self.loadingSpinner.stopAnimating()
         
+        reloadLabels()
     }
     
     func failedWithError(error: Error) {

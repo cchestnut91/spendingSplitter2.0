@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, CloudKitDelegate {
+class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIButton!
@@ -295,6 +295,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
                         CategoryManager.addCategory(newCategory: text!)
                         self.categoryPicker.reloadAllComponents()
                         self.categoryPicker.selectRow(CategoryManager.categories().index(of: text!)! + 1, inComponent: 0, animated: true)
+                        self.newExpense?.category = text!
                     }
                 })
                 let cancelAction = UIAlertAction.init(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) in
@@ -368,19 +369,15 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         } else {
             self.savingAlert = UIAlertController.init(title: "Please Wait", message: "Saving expense...", preferredStyle: UIAlertControllerStyle.alert)
             self.present(self.savingAlert!, animated: true, completion: nil)
-            CloudKitManager.sharedInstance.delegate = self
-            CloudKitManager.add(expense: self.newExpense!)
+            
+            CloudKitManager.add(expense: self.newExpense!, onSuccess: { 
+                self.savingAlert?.dismiss(animated: true, completion: { 
+                    self.dismiss(animated: true, completion: nil)
+                })
+                }, onError: { (error) in
+                    ErrorManager.present(error: error, onViewController: self)
+            })
         }
-    }
-    
-    func didFinishTask() {
-        self.savingAlert?.dismiss(animated: true, completion: { 
-            self.dismiss(animated: true, completion: nil)
-        })
-    }
-    
-    func failedWithError(error: Error) {
-        ErrorManager.present(error: error, onViewController: self)
     }
     
 }

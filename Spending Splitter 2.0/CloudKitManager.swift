@@ -9,16 +9,7 @@
 import Foundation
 import CloudKit
 
-protocol CloudKitDelegate: class {
-    
-    func didFinishTask()
-    func failedWithError(error: Error)
-    
-}
-
 class CloudKitManager : NSObject {
-    
-    var delegate: CloudKitDelegate?
     
     var expenses: [Expense]
     var recurringExpenses: [RecurringExpense]
@@ -37,7 +28,7 @@ class CloudKitManager : NSObject {
         super.init()
     }
     
-    class func add(expense: Expense) {
+    class func add(expense: Expense, onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
         
         let record = expense.createRecord()
         
@@ -46,35 +37,35 @@ class CloudKitManager : NSObject {
                 if let recurringRecord = expense.recurringRecord() {
                     CloudKitManager.sharedInstance.publicDB.save(recurringRecord, completionHandler: { (savedRecurring, error) in
                         if error == nil {
-                            CloudKitManager.sharedInstance.delegate?.didFinishTask()
+                            onSuccess()
                         } else {
-                            CloudKitManager.sharedInstance.delegate?.failedWithError(error: error!)
+                            onError(error!)
                         }
                     })
                 } else {
                     CloudKitManager.sharedInstance.expenses.append(expense)
                     CloudKitManager.sortExpenses()
-                    CloudKitManager.sharedInstance.delegate?.didFinishTask()
+                    onSuccess()
                 }
             } else {
-                CloudKitManager.sharedInstance.delegate?.failedWithError(error: error!)
+                onError(error!)
             }
         }
         
     }
     
-    class func delete(expense: Expense) {
+    class func delete(expense: Expense, onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
         let recordID = CKRecordID.init(recordName: NSUUID().uuidString)
         let record = CKRecord.init(recordType: ExpenseKeys.deletedExpenseType, recordID: recordID)
         
         record.setValue(expense.expenseID, forKey: ExpenseKeys.expenseIDKey)
         
         CloudKitManager.sharedInstance.publicDB.save(record) { (record, error) in
-            if error != nil {
+            if error == nil {
                 CloudKitManager.sharedInstance.expenses.remove(at: CloudKitManager.sharedInstance.expenses.index(of: expense)!)
-                CloudKitManager.sharedInstance.delegate?.didFinishTask()
+                onSuccess()
             } else {
-                CloudKitManager.sharedInstance.delegate?.failedWithError(error: error!)
+                onError(error!)
             }
         }
     }
@@ -83,22 +74,22 @@ class CloudKitManager : NSObject {
         CloudKitManager.sharedInstance.expenses.sort(by: { $0.date?.compare($1.date as! Date) == ComparisonResult.orderedAscending })
     }
     
-    class func updateExpenses() {
+    class func updateExpenses(onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
         
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: ExpenseKeys.expenseRecordType, predicate: predicate)
         CloudKitManager.sharedInstance.publicDB.perform(query, inZoneWith: nil) { (records, error) in
             if error == nil {
                 let expenseRecords = records
-                self.parseResults(records: expenseRecords!);
+                self.parseResults(records: expenseRecords!, onSuccess: onSuccess, onError: onError);
             } else {
-                CloudKitManager.sharedInstance.delegate?.failedWithError(error: error!)
+                onError(error!)
             }
         }
         
     }
     
-    class func parseResults(records: [CKRecord]) {
+    class func parseResults(records: [CKRecord], onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
         CloudKitManager.sharedInstance.expenses = []
         
         for record in records {
@@ -108,24 +99,24 @@ class CloudKitManager : NSObject {
         
         CloudKitManager.sortExpenses()
         
-        self.checkRecurring()
+        self.checkRecurring(onSuccess: onSuccess, onError: onError)
     }
     
-    class func checkRecurring() {
+    class func checkRecurring(onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
         
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: ExpenseKeys.recurringExpenseType, predicate: predicate)
         CloudKitManager.sharedInstance.publicDB.perform(query, inZoneWith: nil) { (records, error) in
             if error == nil {
-                self.parseRecurringResults(records: records!);
+                self.parseRecurringResults(records: records!, onSuccess: onSuccess, onError: onError);
             } else {
-                CloudKitManager.sharedInstance.delegate?.failedWithError(error: error!)
+                onError(error!)
             }
         }
         
     }
     
-    class func parseRecurringResults(records: [CKRecord]) {
+    class func parseRecurringResults(records: [CKRecord], onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
         CloudKitManager.sharedInstance.recurringExpenses = []
         
         for record in records {
@@ -192,21 +183,21 @@ class CloudKitManager : NSObject {
         CloudKitManager.sortExpenses()
         
         if newExpenses.count == 0 {
-            self.loadDeletedRecords()
+            self.loadDeletedRecords(onSuccess: onSuccess, onError: onError)
         } else {
-            self.addNewRecords(newRecords: newExpenses)
+            self.addNewRecords(newRecords: newExpenses, onSuccess: onSuccess, onError: onError)
         }
     }
     
-    class func addNewRecords(newRecords: [CKRecord]) {
+    class func addNewRecords(newRecords: [CKRecord], onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
         let operation = CKModifyRecordsOperation.init(recordsToSave: newRecords, recordIDsToDelete: nil)
         
         operation.modifyRecordsCompletionBlock = { savedRecords, deletedRecordIDs, error in
             if error != nil {
-                CloudKitManager.sharedInstance.delegate?.failedWithError(error: error!)
+                onError(error!)
             } else {
                 
-                self.loadDeletedRecords()
+                self.loadDeletedRecords(onSuccess: onSuccess, onError: onError)
             }
         }
         
@@ -214,21 +205,21 @@ class CloudKitManager : NSObject {
         
     }
     
-    class func loadDeletedRecords() {
+    class func loadDeletedRecords(onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
         
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: ExpenseKeys.deletedExpenseType, predicate: predicate)
         CloudKitManager.sharedInstance.publicDB.perform(query, inZoneWith: nil) { (records, error) in
             if error == nil {
-                self.parseDeletedRecords(records: records!)
+                self.parseDeletedRecords(records: records!, onSuccess: onSuccess, onError: onError)
             } else {
-                CloudKitManager.sharedInstance.delegate?.failedWithError(error: error!)
+                onError(error!)
             }
         }
         
     }
     
-    class func parseDeletedRecords(records: [CKRecord]) {
+    class func parseDeletedRecords(records: [CKRecord], onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
         
         var recordsToDelete = [String]()
         
@@ -246,14 +237,14 @@ class CloudKitManager : NSObject {
             
         }
         
-        self.wrapUp()
+        self.wrapUp(onSuccess: onSuccess, onError: onError)
     }
     
-    class func wrapUp() {
+    class func wrapUp(onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
         
         CloudKitManager.sortExpenses()
         
-        CloudKitManager.sharedInstance.delegate?.didFinishTask()
+        onSuccess()
     }
     
     class func hasRegisteredSubscriptions() -> Bool! {
@@ -263,7 +254,7 @@ class CloudKitManager : NSObject {
         return false
     }
     
-    class func registerSubscriptions() {
+    class func registerSubscriptions(onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
         let predicate = NSPredicate(value: true)
         let newRecordSubscription = CKQuerySubscription(recordType: ExpenseKeys.expenseRecordType, predicate: predicate, options: CKQuerySubscriptionOptions.firesOnRecordCreation)
         let newRecordInfo = CKNotificationInfo()
@@ -285,13 +276,13 @@ class CloudKitManager : NSObject {
                     if error == nil {
                         UserDefaults.standard.set(true, forKey: "RegisteredSubscriptions")
                         UserDefaults.standard.synchronize()
-                        sharedInstance.delegate?.didFinishTask()
+                        onSuccess()
                     } else {
-                        sharedInstance.delegate?.failedWithError(error: delError!)
+                        onError(error!)
                     }
                 })
             } else {
-                sharedInstance.delegate?.failedWithError(error: error!)
+                onError(error!)
             }
         }
     }
