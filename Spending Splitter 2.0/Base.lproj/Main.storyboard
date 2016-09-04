@@ -40,7 +40,7 @@
                                             <color key="titleColor" red="1" green="0.98823529409999999" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="HWv-LN-t4j" kind="popoverPresentation" popoverAnchorView="Uoa-ZI-by9" id="jaB-JI-sOa">
+                                            <segue destination="HWv-LN-t4j" kind="popoverPresentation" identifier="addExpenseSegue" popoverAnchorView="Uoa-ZI-by9" id="jaB-JI-sOa">
                                                 <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                             </segue>
                                         </connections>

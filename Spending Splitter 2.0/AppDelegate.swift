@@ -40,6 +40,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    internal func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        if shortcutItem.type.hasSuffix("addExpense") {
+            let navController = application.keyWindow?.rootViewController as! UINavigationController
+            if (navController.presentedViewController != nil) {
+                navController.dismiss(animated: false, completion: {
+                    if navController.viewControllers.count > 1 {
+                        navController.popToRootViewController(animated: false)
+                    }
+                    navController.viewControllers.first?.performSegue(withIdentifier: "addExpenseSegue", sender: self)
+                    completionHandler(true)
+                })
+            } else if navController.viewControllers.count > 1 {
+                navController.popToRootViewController(animated: false)
+                navController.viewControllers.first?.performSegue(withIdentifier: "addExpenseSegue", sender: self)
+                completionHandler(true)
+            } else {
+                navController.viewControllers.first?.performSegue(withIdentifier: "addExpenseSegue", sender: self)
+                completionHandler(true)
+            }
+            
+        } else {
+            completionHandler(false)
+        }
+    }
 
 
 }

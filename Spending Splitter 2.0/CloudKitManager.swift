@@ -20,7 +20,7 @@ class CloudKitManager : NSObject {
     
     override init() {
         
-        self.publicDB = CKContainer.default().publicCloudDatabase
+        self.publicDB = CKContainer.init(identifier: "iCloud.com.calvinchestnut.Spending-Splitter-2-0").publicCloudDatabase
         
         self.expenses = []
         self.recurringExpenses = []

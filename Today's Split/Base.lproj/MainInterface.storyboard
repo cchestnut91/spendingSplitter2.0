@@ -18,24 +18,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Calvin Owes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NUu-oA-nmu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Recalculating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NUu-oA-nmu">
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
                                 <color key="textColor" red="1" green="0.98823529409999999" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$50.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGj-Z2-0qU">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$50.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGj-Z2-0qU">
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="50"/>
                                 <color key="textColor" red="1" green="0.1137254902" blue="0.08235294118" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <color key="backgroundColor" red="0.24313725489999999" green="0.76470588240000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="PGj-Z2-0qU" secondAttribute="trailing" id="5Lv-Ej-fW7"/>
                             <constraint firstItem="PGj-Z2-0qU" firstAttribute="top" secondItem="NUu-oA-nmu" secondAttribute="bottom" constant="5" id="Dd1-60-WaO"/>
-                            <constraint firstItem="NUu-oA-nmu" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="HB2-l5-Fgx"/>
+                            <constraint firstItem="NUu-oA-nmu" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="8" id="HB2-l5-Fgx"/>
                             <constraint firstItem="NUu-oA-nmu" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="5" id="O2S-gs-ndb"/>
                             <constraint firstAttribute="trailing" secondItem="NUu-oA-nmu" secondAttribute="trailing" id="Q3g-OM-82x"/>
-                            <constraint firstItem="PGj-Z2-0qU" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="wJl-Iu-zA2"/>
+                            <constraint firstItem="PGj-Z2-0qU" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="16" id="wJl-Iu-zA2"/>
                             <constraint firstAttribute="bottom" secondItem="PGj-Z2-0qU" secondAttribute="bottom" constant="5" id="zlW-H4-5uD"/>
                         </constraints>
                     </view>
@@ -52,7 +53,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="30" y="-58"/>
+            <point key="canvasLocation" x="28.800000000000001" y="-58.47076461769116"/>
         </scene>
     </scenes>
 </document>

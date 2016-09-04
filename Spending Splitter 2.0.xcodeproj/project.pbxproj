@@ -24,6 +24,7 @@
 		3E0A8FCD1D7BBD8E008E3B9D /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8A71D768AF000324861 /* Expense.swift */; };
 		3E0A8FCE1D7BBD8E008E3B9D /* RecurringExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8F9F1D76FEA1008E3B9D /* RecurringExpense.swift */; };
 		3E0A8FCF1D7BBD92008E3B9D /* ExpenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8FAB1D77AD60008E3B9D /* ExpenseManager.swift */; };
+		3EAF2C2C1D7BCAEE008EB317 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF8F8A11D767F4000324861 /* CloudKit.framework */; };
 		3EF8F8721D76705600324861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8711D76705600324861 /* AppDelegate.swift */; };
 		3EF8F8741D76705600324861 /* SnapshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8731D76705600324861 /* SnapshotViewController.swift */; };
 		3EF8F8771D76705600324861 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EF8F8751D76705600324861 /* Main.storyboard */; };
@@ -88,6 +89,7 @@
 		3E0A8FBD1D7BB7FD008E3B9D /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		3E0A8FC01D7BB7FD008E3B9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		3E0A8FC21D7BB7FD008E3B9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3EAF2C2B1D7BCAEA008EB317 /* Today's Split.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Today's Split.entitlements"; sourceTree = "<group>"; };
 		3EF8F86E1D76705600324861 /* Spending Splitter 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spending Splitter 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EF8F8711D76705600324861 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EF8F8731D76705600324861 /* SnapshotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E0A8FBB1D7BB7FD008E3B9D /* NotificationCenter.framework in Frameworks */,
+				3EAF2C2C1D7BCAEE008EB317 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +187,7 @@
 		3E0A8FBC1D7BB7FD008E3B9D /* Today's Split */ = {
 			isa = PBXGroup;
 			children = (
+				3EAF2C2B1D7BCAEA008EB317 /* Today's Split.entitlements */,
 				3E0A8FBD1D7BB7FD008E3B9D /* TodayViewController.swift */,
 				3E0A8FBF1D7BB7FD008E3B9D /* MainInterface.storyboard */,
 				3E0A8FC21D7BB7FD008E3B9D /* Info.plist */,
@@ -347,6 +351,14 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = VDWJ8UMBJ6;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					3EF8F86D1D76705600324861 = {
 						CreatedOnToolsVersion = 8.0;
@@ -532,6 +544,7 @@
 		3E0A8FC71D7BB7FD008E3B9D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Today's Split/Today's Split.entitlements";
 				DEVELOPMENT_TEAM = VDWJ8UMBJ6;
 				INFOPLIST_FILE = "Today's Split/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -545,6 +558,7 @@
 		3E0A8FC81D7BB7FD008E3B9D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Today's Split/Today's Split.entitlements";
 				DEVELOPMENT_TEAM = VDWJ8UMBJ6;
 				INFOPLIST_FILE = "Today's Split/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -750,6 +764,7 @@
 				3E0A8FC81D7BB7FD008E3B9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3EF8F8691D76705600324861 /* Build configuration list for PBXProject "Spending Splitter 2.0" */ = {
 			isa = XCConfigurationList;

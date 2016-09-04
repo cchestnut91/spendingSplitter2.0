@@ -39,16 +39,45 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         CloudKitManager.updateExpenses(onSuccess: {
             DispatchQueue.main.async {
                 let amount = ExpenseManager.amountOwedToDisplay()
+                self.whoOwesLabel.isHidden = false
+                var amountText: String
+                var whoOwesText: String
+                var amountHiddenState: Bool
                 if let name = ExpenseManager.whoOwes() {
-                    self.amountLabel.text = self.currencyFormatter!.string(from: amount!)
-                    self.whoOwesLabel.text = name + " Owes"
-                    self.amountLabel.isHidden = false
+                    amountText = self.currencyFormatter!.string(from: amount!)!
+                    whoOwesText = name + " Owes"
+                    amountHiddenState = false
                     
                 } else {
-                    self.whoOwesLabel.text = "All Even"
-                    self.amountLabel.isHidden = true
+                    whoOwesText = "All Even"
+                    amountText = ""
+                    amountHiddenState = true
                 }
-                completionHandler(NCUpdateResult.newData)
+                
+                if let pastValue = UserDefaults.standard.value(forKey: "pastValue") as? NSNumber {
+                    
+                    if pastValue == ExpenseManager.amountOwed() {
+                        self.amountLabel.text = amountText
+                        self.whoOwesLabel.text = whoOwesText
+                        self.amountLabel.isHidden = amountHiddenState
+                        completionHandler(NCUpdateResult.noData)
+                    } else {
+                        self.amountLabel.text = amountText
+                        self.whoOwesLabel.text = whoOwesText
+                        self.amountLabel.isHidden = amountHiddenState
+                        UserDefaults.standard.setValue(ExpenseManager.amountOwed(), forKey: "pastValue")
+                        UserDefaults.standard.synchronize()
+                        completionHandler(NCUpdateResult.newData)
+                    }
+                    
+                } else {
+                    self.amountLabel.text = amountText
+                    self.whoOwesLabel.text = whoOwesText
+                    self.amountLabel.isHidden = amountHiddenState
+                    UserDefaults.standard.setValue(ExpenseManager.amountOwed(), forKey: "pastValue")
+                    UserDefaults.standard.synchronize()
+                    completionHandler(NCUpdateResult.newData)
+                }
             }
             
             },  onError: { (error) in
