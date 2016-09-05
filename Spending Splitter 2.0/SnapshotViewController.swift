@@ -39,6 +39,11 @@ class SnapshotViewController: UIViewController {
             self.reloadLabels()
             self.loadSubscriptions()
             
+            if QuickActionManager.sharedInstance.shortcut != nil {
+                self.handle(shortcut: QuickActionManager.sharedInstance.shortcut!)
+                QuickActionManager.sharedInstance.shortcut = nil
+            }
+            
             }, onError: {(error) in
                 ErrorManager.present(error: error, onViewController: self)
         })
@@ -48,6 +53,15 @@ class SnapshotViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         reloadLabels()
+    }
+    
+    func handle(shortcut: UIApplicationShortcutItem) {
+        if shortcut.type == QuickActionManager.addExpenseShortcutType {
+            self.performSegue(withIdentifier: "addExpenseSegue", sender: self)
+            
+        } else {
+            // other actions?
+        }
     }
     
     func loadSubscriptions() {

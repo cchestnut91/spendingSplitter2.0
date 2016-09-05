@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E0A5DE01D7CF89700C1A91A /* QuickActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A5DDF1D7CF89700C1A91A /* QuickActionManager.swift */; };
 		3E0A8FA01D76FEA1008E3B9D /* RecurringExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8F9F1D76FEA1008E3B9D /* RecurringExpense.swift */; };
 		3E0A8FA21D76FFB1008E3B9D /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8FA11D76FFB1008E3B9D /* CloudKitManager.swift */; };
 		3E0A8FAC1D77AD60008E3B9D /* ExpenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8FAB1D77AD60008E3B9D /* ExpenseManager.swift */; };
@@ -77,6 +78,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E0A5DDF1D7CF89700C1A91A /* QuickActionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionManager.swift; sourceTree = "<group>"; };
 		3E0A8F9F1D76FEA1008E3B9D /* RecurringExpense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecurringExpense.swift; sourceTree = "<group>"; };
 		3E0A8FA11D76FFB1008E3B9D /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		3E0A8FAB1D77AD60008E3B9D /* ExpenseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseManager.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				3E0A8FAF1D77D052008E3B9D /* CategoryManager.swift */,
 				3E0A8FB11D77D3E5008E3B9D /* IntervalManager.swift */,
 				3E0A8FB31D77E621008E3B9D /* ErrorManager.swift */,
+				3E0A5DDF1D7CF89700C1A91A /* QuickActionManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				3E0A8FB41D77E621008E3B9D /* ErrorManager.swift in Sources */,
 				3EF8F8721D76705600324861 /* AppDelegate.swift in Sources */,
 				3E0A8FB21D77D3E5008E3B9D /* IntervalManager.swift in Sources */,
+				3E0A5DE01D7CF89700C1A91A /* QuickActionManager.swift in Sources */,
 				3E0A8FA21D76FFB1008E3B9D /* CloudKitManager.swift in Sources */,
 				3EF8F8A41D768AB800324861 /* ExpenseKeys.swift in Sources */,
 				3EF8F8A81D768AF000324861 /* Expense.swift in Sources */,

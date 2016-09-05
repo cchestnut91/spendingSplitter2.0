@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        QuickActionManager.sharedInstance.shortcut = launchOptions?[UIApplicationLaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem
+        
         return true
     }
 
@@ -42,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     internal func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-        if shortcutItem.type.hasSuffix("addExpense") {
+        if shortcutItem.type == QuickActionManager.addExpenseShortcutType && QuickActionManager.sharedInstance.shortcut == nil {
             let navController = application.keyWindow?.rootViewController as! UINavigationController
             if (navController.presentedViewController != nil) {
                 navController.dismiss(animated: false, completion: {
