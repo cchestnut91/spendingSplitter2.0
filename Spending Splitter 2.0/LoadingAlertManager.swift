@@ -27,7 +27,9 @@ class LoadingAlertManager: NSObject {
         if LoadingAlertManager.sharedInstance.loadingAlert != nil {
             LoadingAlertManager.sharedInstance.loadingAlert!.dismiss(animated: true) {
                 LoadingAlertManager.sharedInstance.loadingAlert = nil
-                withCompletion()
+                DispatchQueue.main.async(execute: { 
+                    withCompletion()
+                })
             }
         } else {
             withCompletion()

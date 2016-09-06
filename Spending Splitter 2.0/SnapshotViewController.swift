@@ -33,8 +33,7 @@ class SnapshotViewController: UIViewController {
         
         LoadingAlertManager.showLoadingAlertWith(title: "Calculating Expenses & Budget", message: "Please wait" , from: self)
         
-        CloudKitManager.updateExpenses(onSuccess: { 
-            self.infoView.isHidden = false
+        CloudKitManager.updateExpenses(onSuccess: {
             
             self.reloadLabels()
             self.loadSubscriptions()
@@ -98,6 +97,7 @@ class SnapshotViewController: UIViewController {
         
         DispatchQueue.main.async {
             LoadingAlertManager.removeLoadingView(withCompletion: {
+                self.infoView.isHidden = false
                 let amtOwed = ExpenseManager.amountOwedToDisplay()!
                 
                 if let whoOwes = ExpenseManager.whoOwes() {

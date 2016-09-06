@@ -62,6 +62,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.categoryPicker.dataSource = self
         
         self.datePicker.addTarget(self, action: #selector(AddExpenseViewController.dateChanged), for: UIControlEvents.valueChanged)
+        self.datePicker.setValue(UIColor(red:1.00, green:0.99, blue:0.19, alpha:1.0), forKey: "textColor")
         
         self.intervalPicker.delegate = self
         self.intervalPicker.dataSource = self
@@ -257,23 +258,26 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         return 0
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        var title: String?
         if pickerView == self.categoryPicker {
             if row == 0 {
-                return "Select Category"
+                title = "Select Category"
             } else if row == CategoryManager.categories().count + 1 {
-                return "New Category"
+                title = "New Category"
             } else {
-                return CategoryManager.categories()[row - 1]
+                title = CategoryManager.categories()[row - 1]
             }
         } else if pickerView == self.intervalPicker {
             if row == 0 {
-                return "Not Recurring"
+                title = "Not Recurring"
             } else {
-                return IntervalManager.intervals()[row - 1]
+                title = IntervalManager.intervals()[row - 1]
             }
+        } else {
+            title = ""
         }
-        return ""
+        return NSAttributedString(string: title!, attributes: [NSForegroundColorAttributeName:UIColor(red:1.00, green:0.99, blue:0.19, alpha:1.0)])
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -310,13 +314,13 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 self.present(newCatAlert, animated: true, completion: nil)
                 
             } else {
-                self.newExpense?.category = self.pickerView(pickerView, titleForRow: row, forComponent: component)
+                self.newExpense?.category = self.pickerView(pickerView, attributedTitleForRow: row, forComponent: component)?.string
             }
         } else if pickerView == self.intervalPicker {
             self.resizePicker(name: "Interval")
             self.newExpense?.recurring = row != 0
             if (self.newExpense?.recurring!)! {
-                self.newExpense?.interval = self.pickerView(pickerView, titleForRow: row, forComponent: component)
+                self.newExpense?.interval = self.pickerView(pickerView, attributedTitleForRow: row, forComponent: component)?.string
             } else {
                 self.newExpense?.interval = nil
             }
