@@ -35,8 +35,6 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var nf: NumberFormatter?
     var currencyFormatter: NumberFormatter?
     
-    var savingAlert: UIAlertController?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -367,11 +365,11 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
             errorAlert.addAction(ErrorManager.okAction())
             self.present(errorAlert, animated: true, completion: nil)
         } else {
-            self.savingAlert = UIAlertController.init(title: "Please Wait", message: "Saving expense...", preferredStyle: UIAlertControllerStyle.alert)
-            self.present(self.savingAlert!, animated: true, completion: nil)
+            
+            LoadingAlertManager.showLoadingAlertWith(title: "Please Wait", message: "Saving expense...", from: self)
             
             CloudKitManager.add(expense: self.newExpense!, onSuccess: { 
-                self.savingAlert?.dismiss(animated: true, completion: { 
+                LoadingAlertManager.removeLoadingView(withCompletion: {
                     self.dismiss(animated: true, completion: nil)
                 })
                 }, onError: { (error) in

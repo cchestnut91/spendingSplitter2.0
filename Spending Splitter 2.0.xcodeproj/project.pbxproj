@@ -25,6 +25,7 @@
 		3E0A8FCD1D7BBD8E008E3B9D /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8A71D768AF000324861 /* Expense.swift */; };
 		3E0A8FCE1D7BBD8E008E3B9D /* RecurringExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8F9F1D76FEA1008E3B9D /* RecurringExpense.swift */; };
 		3E0A8FCF1D7BBD92008E3B9D /* ExpenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8FAB1D77AD60008E3B9D /* ExpenseManager.swift */; };
+		3E1FEACA1D7EE68D0030390B /* LoadingAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1FEAC91D7EE68D0030390B /* LoadingAlertManager.swift */; };
 		3EAF2C2C1D7BCAEE008EB317 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF8F8A11D767F4000324861 /* CloudKit.framework */; };
 		3EF8F8721D76705600324861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8711D76705600324861 /* AppDelegate.swift */; };
 		3EF8F8741D76705600324861 /* SnapshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8731D76705600324861 /* SnapshotViewController.swift */; };
@@ -91,6 +92,7 @@
 		3E0A8FBD1D7BB7FD008E3B9D /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		3E0A8FC01D7BB7FD008E3B9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		3E0A8FC21D7BB7FD008E3B9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E1FEAC91D7EE68D0030390B /* LoadingAlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingAlertManager.swift; sourceTree = "<group>"; };
 		3EAF2C2B1D7BCAEA008EB317 /* Today's Split.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Today's Split.entitlements"; sourceTree = "<group>"; };
 		3EF8F86E1D76705600324861 /* Spending Splitter 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spending Splitter 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EF8F8711D76705600324861 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				3E0A8FB11D77D3E5008E3B9D /* IntervalManager.swift */,
 				3E0A8FB31D77E621008E3B9D /* ErrorManager.swift */,
 				3E0A5DDF1D7CF89700C1A91A /* QuickActionManager.swift */,
+				3E1FEAC91D7EE68D0030390B /* LoadingAlertManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				3EF8F8741D76705600324861 /* SnapshotViewController.swift in Sources */,
 				3EF8F8A61D768AE100324861 /* Spender.swift in Sources */,
 				3E0A8FAC1D77AD60008E3B9D /* ExpenseManager.swift in Sources */,
+				3E1FEACA1D7EE68D0030390B /* LoadingAlertManager.swift in Sources */,
 				3E0A8FA01D76FEA1008E3B9D /* RecurringExpense.swift in Sources */,
 				3E0A8FAE1D77BC4E008E3B9D /* AddExpenseViewController.swift in Sources */,
 				3E0A8FB01D77D053008E3B9D /* CategoryManager.swift in Sources */,

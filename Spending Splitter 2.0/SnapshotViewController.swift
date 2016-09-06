@@ -13,7 +13,6 @@ import UserNotifications
 class SnapshotViewController: UIViewController {
     
     @IBOutlet weak var infoView: UIView!
-    @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
 
     @IBOutlet weak var whoOwesLabel: UILabel!
     @IBOutlet weak var amountOwedLabel: UILabel!
@@ -32,9 +31,10 @@ class SnapshotViewController: UIViewController {
         
         super.viewDidLoad()
         
+        LoadingAlertManager.showLoadingAlertWith(title: "Calculating Expenses & Budget", message: "Please wait" , from: self)
+        
         CloudKitManager.updateExpenses(onSuccess: { 
             self.infoView.isHidden = false
-            self.loadingSpinner.stopAnimating()
             
             self.reloadLabels()
             self.loadSubscriptions()
@@ -54,6 +54,7 @@ class SnapshotViewController: UIViewController {
         super.viewDidAppear(animated)
         reloadLabels()
     }
+    
     
     func handle(shortcut: UIApplicationShortcutItem) {
         if shortcut.type == QuickActionManager.addExpenseShortcutType {
@@ -89,14 +90,6 @@ class SnapshotViewController: UIViewController {
         }
     }
     
-    func didFinishTask() {
-        // Stop spinner?
-        self.infoView.isHidden = false
-        self.loadingSpinner.stopAnimating()
-        
-        reloadLabels()
-    }
-    
     func failedWithError(error: Error) {
         ErrorManager.present(error: error, onViewController: self)
     }
@@ -104,16 +97,18 @@ class SnapshotViewController: UIViewController {
     func reloadLabels() {
         
         DispatchQueue.main.async {
-            let amtOwed = ExpenseManager.amountOwedToDisplay()!
-            
-            if let whoOwes = ExpenseManager.whoOwes() {
-                self.whoOwesLabel.text = whoOwes + " Owes"
-                self.amountOwedLabel.text = self.currencyFormatter!.string(from: amtOwed)
-                self.amountOwedLabel.isHidden = false
-            } else {
-                self.whoOwesLabel.text = "All Even"
-                self.amountOwedLabel.isHidden = true
-            }
+            LoadingAlertManager.removeLoadingView(withCompletion: {
+                let amtOwed = ExpenseManager.amountOwedToDisplay()!
+                
+                if let whoOwes = ExpenseManager.whoOwes() {
+                    self.whoOwesLabel.text = whoOwes + " Owes"
+                    self.amountOwedLabel.text = self.currencyFormatter!.string(from: amtOwed)
+                    self.amountOwedLabel.isHidden = false
+                } else {
+                    self.whoOwesLabel.text = "All Even"
+                    self.amountOwedLabel.isHidden = true
+                }
+            })
         }
     }
 
