@@ -12,11 +12,13 @@ class ErrorManager: NSObject {
     
     class func present(error: Error, onViewController: UIViewController) {
         // Shop and show error
-        let errorAlert = UIAlertController.init(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-        let okAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default, handler: nil)
-        errorAlert.addAction(okAction)
-        print(error.localizedDescription)
-        onViewController.present(errorAlert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let errorAlert = UIAlertController.init(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction.init(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+            errorAlert.addAction(okAction)
+            print(error.localizedDescription)
+            onViewController.present(errorAlert, animated: true, completion: nil)
+        }
     }
     
     class func okAction() -> UIAlertAction {

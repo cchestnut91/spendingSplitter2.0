@@ -13,6 +13,7 @@ class CloudKitManager : NSObject {
     
     var expenses: [Expense]
     var recurringExpenses: [RecurringExpense]
+    var categories: [ExpenseCategory]
     
     let publicDB: CKDatabase
     
@@ -24,6 +25,7 @@ class CloudKitManager : NSObject {
         
         self.expenses = []
         self.recurringExpenses = []
+        self.categories = []
         
         super.init()
     }
@@ -67,6 +69,45 @@ class CloudKitManager : NSObject {
             } else {
                 onError(error!)
             }
+        }
+    }
+    
+    class func loadCategories(onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: ExpenseKeys.categoryRecordType, predicate: predicate)
+        CloudKitManager.sharedInstance.publicDB.perform(query, inZoneWith: nil) { (records, error) in
+            if error == nil {
+                CloudKitManager.sharedInstance.categories = []
+                for record in records! {
+                    let category = ExpenseCategory(record: record)
+                    CloudKitManager.sharedInstance.categories.append(category)
+                }
+                CloudKitManager.sharedInstance.categories.sort { $0.name < $1.name }
+                onSuccess()
+            } else {
+                onError(error!)
+            }
+        }
+    }
+    
+    class func getCategories() -> [ExpenseCategory] {
+        return CloudKitManager.sharedInstance.categories
+    }
+    
+    class func add(category: ExpenseCategory, onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
+        let newRecord = category.createRecord()
+        if CloudKitManager.sharedInstance.categories.index(of: category) == nil {
+            CloudKitManager.sharedInstance.publicDB.save(newRecord) { (record, error) in
+                if error == nil {
+                    CloudKitManager.sharedInstance.categories.append(category)
+                    CloudKitManager.sharedInstance.categories.sort { $0.name < $1.name }
+                    onSuccess()
+                } else {
+                    onError(error!)
+                }
+            }
+        } else {
+            onSuccess()
         }
     }
     
@@ -244,7 +285,7 @@ class CloudKitManager : NSObject {
         
         CloudKitManager.sortExpenses()
         
-        onSuccess()
+        CloudKitManager.loadCategories(onSuccess: onSuccess, onError: onError)
     }
     
     class func hasRegisteredSubscriptions() -> Bool! {

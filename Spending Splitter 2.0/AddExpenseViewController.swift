@@ -249,7 +249,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == self.categoryPicker {
-            return CategoryManager.categories().count + 2
+            return CloudKitManager.getCategories().count + 2
         } else if pickerView == self.intervalPicker {
             return IntervalManager.intervals().count + 1
         }
@@ -261,10 +261,10 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if pickerView == self.categoryPicker {
             if row == 0 {
                 title = "Select Category"
-            } else if row == CategoryManager.categories().count + 1 {
+            } else if row == CloudKitManager.getCategories().count + 1 {
                 title = "New Category"
             } else {
-                title = CategoryManager.categories()[row - 1]
+                title = CloudKitManager.getCategories()[row - 1].name
             }
         } else if pickerView == self.intervalPicker {
             if row == 0 {
@@ -284,7 +284,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self.resizePicker(name: "Category")
             if row == 0 {
                 self.newExpense?.category = nil
-            } else if row == CategoryManager.categories().count + 1 {
+            } else if row == CloudKitManager.getCategories().count + 1 {
                 let newCatAlert = UIAlertController.init(title: "New Category", message: "Enter the category title", preferredStyle: UIAlertControllerStyle.alert)
                 let confirmAction = UIAlertAction.init(title: "Done", style: UIAlertActionStyle.default, handler: { (action) in
                     let text = newCatAlert.textFields?.first?.text
@@ -292,10 +292,20 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
                         newCatAlert.title = "Invalid Category Name"
                         self.present(newCatAlert, animated: true, completion: nil)
                     } else {
-                        CategoryManager.addCategory(newCategory: text!)
-                        self.categoryPicker.reloadAllComponents()
-                        self.categoryPicker.selectRow(CategoryManager.categories().index(of: text!)! + 1, inComponent: 0, animated: true)
-                        self.newExpense?.category = text!
+                        LoadingAlertManager.showLoadingAlertWith(title: "Saving Category", message: "Please wait...", from: self)
+                        let newCategory = ExpenseCategory(name: text!)
+                        CloudKitManager.add(category: newCategory, onSuccess: {
+                            DispatchQueue.main.async {
+                                self.categoryPicker.reloadAllComponents()
+                                self.categoryPicker.selectRow(CloudKitManager.getCategories().index(of: newCategory)! + 1, inComponent: 0, animated: true)
+                                self.newExpense?.category = text!
+                                LoadingAlertManager.removeLoadingView(withCompletion: { () -> () in
+                                    // Nothing
+                                })
+                            }
+                            }, onError: { (error) in
+                                ErrorManager.present(error: error, onViewController: self)
+                        })
                     }
                 })
                 let cancelAction = UIAlertAction.init(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) in

@@ -13,6 +13,7 @@ class ExpenseKeys : NSObject {
     static let expenseRecordType = "Expense"
     static let recurringExpenseType = "Recurring"
     static let deletedExpenseType = "Deleted"
+    static let categoryRecordType = "Category"
     
     static let expenseAmountKey = "kExpenseAmount"
     static let expenseIDKey = "kExpenseID"
@@ -30,6 +31,9 @@ class ExpenseKeys : NSObject {
     static let intervalBiWeekly = "Biweekly"
     static let intervalMonthly = "Monthly"
     static let intervalYearly = "Yearly"
+    
+    static let categoryName = "name"
+    static let categoryCreated = "created"
     
     static let newRecordNotificationKey = "kNotificationNewRecord"
     static let delRecordNotificationKey = "kNotificationDeletedRecord"
