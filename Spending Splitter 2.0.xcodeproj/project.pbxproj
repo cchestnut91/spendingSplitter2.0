@@ -29,6 +29,7 @@
 		3E1FEACD1D803A510030390B /* ExpenseCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1FEACB1D8032C80030390B /* ExpenseCategory.swift */; };
 		3E1FEACF1D803B2C0030390B /* CategoryBudget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1FEACE1D803B2C0030390B /* CategoryBudget.swift */; };
 		3E1FEAD01D803B2C0030390B /* CategoryBudget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1FEACE1D803B2C0030390B /* CategoryBudget.swift */; };
+		3E1FEAD21D80F86C0030390B /* PersonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1FEAD11D80F86C0030390B /* PersonManager.swift */; };
 		3EAF2C2C1D7BCAEE008EB317 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF8F8A11D767F4000324861 /* CloudKit.framework */; };
 		3EF8F8721D76705600324861 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8711D76705600324861 /* AppDelegate.swift */; };
 		3EF8F8741D76705600324861 /* SnapshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF8F8731D76705600324861 /* SnapshotViewController.swift */; };
@@ -97,6 +98,7 @@
 		3E1FEAC91D7EE68D0030390B /* LoadingAlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingAlertManager.swift; sourceTree = "<group>"; };
 		3E1FEACB1D8032C80030390B /* ExpenseCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseCategory.swift; sourceTree = "<group>"; };
 		3E1FEACE1D803B2C0030390B /* CategoryBudget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryBudget.swift; sourceTree = "<group>"; };
+		3E1FEAD11D80F86C0030390B /* PersonManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonManager.swift; sourceTree = "<group>"; };
 		3EAF2C2B1D7BCAEA008EB317 /* Today's Split.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Today's Split.entitlements"; sourceTree = "<group>"; };
 		3EF8F86E1D76705600324861 /* Spending Splitter 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spending Splitter 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EF8F8711D76705600324861 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				3E0A8FB31D77E621008E3B9D /* ErrorManager.swift */,
 				3E0A5DDF1D7CF89700C1A91A /* QuickActionManager.swift */,
 				3E1FEAC91D7EE68D0030390B /* LoadingAlertManager.swift */,
+				3E1FEAD11D80F86C0030390B /* PersonManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				3E0A8FAC1D77AD60008E3B9D /* ExpenseManager.swift in Sources */,
 				3E1FEACA1D7EE68D0030390B /* LoadingAlertManager.swift in Sources */,
 				3E0A8FA01D76FEA1008E3B9D /* RecurringExpense.swift in Sources */,
+				3E1FEAD21D80F86C0030390B /* PersonManager.swift in Sources */,
 				3E1FEACF1D803B2C0030390B /* CategoryBudget.swift in Sources */,
 				3E0A8FAE1D77BC4E008E3B9D /* AddExpenseViewController.swift in Sources */,
 				3E0A8FB41D77E621008E3B9D /* ErrorManager.swift in Sources */,
