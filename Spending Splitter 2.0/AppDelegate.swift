@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        if UserDefaults.standard.value(forKey: "ConfirmedPerson") == nil {
+            UserDefaults.standard.setValue("", forKey: "ConfirmedPerson")
+            UserDefaults.standard.synchronize()
+        }
         
         QuickActionManager.sharedInstance.shortcut = launchOptions?[UIApplicationLaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem
         

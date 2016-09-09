@@ -15,6 +15,13 @@ class CloudKitManager : NSObject {
     var recurringExpenses: [RecurringExpense]
     var categories: [ExpenseCategory]
     
+    var calvinBudget: [CategoryBudget]
+    var rosieBudget: [CategoryBudget]
+    
+    var calvinCategorySpending: [String: NSNumber];
+    var rosieCategorySpending: [String: NSNumber];
+    var sharedCategorySpending: [String: NSNumber];
+    
     let publicDB: CKDatabase
     
     static let sharedInstance = CloudKitManager()
@@ -26,6 +33,13 @@ class CloudKitManager : NSObject {
         self.expenses = []
         self.recurringExpenses = []
         self.categories = []
+        
+        self.calvinBudget = []
+        self.rosieBudget = []
+        
+        self.calvinCategorySpending = [:]
+        self.rosieCategorySpending = [:]
+        self.sharedCategorySpending = [:]
         
         super.init()
     }
@@ -72,6 +86,20 @@ class CloudKitManager : NSObject {
         }
     }
     
+    class func updateBudget(budget: CategoryBudget, onSuccess: @escaping () -> Void, onError: @escaping (Error) -> ()) {
+        
+        let operation = CKModifyRecordsOperation.init(recordsToSave: [budget.createRecord()], recordIDsToDelete: nil)
+        
+        operation.modifyRecordsCompletionBlock = { savedRecords, deletedRecordIDs, error in
+            if error != nil {
+                onError(error!)
+            } else {
+                onSuccess()
+            }
+        }
+        CloudKitManager.sharedInstance.publicDB.add(operation)
+    }
+    
     class func loadCategories(onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: ExpenseKeys.categoryRecordType, predicate: predicate)
@@ -83,7 +111,7 @@ class CloudKitManager : NSObject {
                     CloudKitManager.sharedInstance.categories.append(category)
                 }
                 CloudKitManager.sharedInstance.categories.sort { $0.name < $1.name }
-                onSuccess()
+                CloudKitManager.loadBudgets(onSuccess: onSuccess, onError: onError)
             } else {
                 onError(error!)
             }
@@ -92,6 +120,105 @@ class CloudKitManager : NSObject {
     
     class func getCategories() -> [ExpenseCategory] {
         return CloudKitManager.sharedInstance.categories
+    }
+    
+    class func loadBudgets(onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: ExpenseKeys.budgetRecordType, predicate: predicate)
+        CloudKitManager.sharedInstance.publicDB.perform(query, inZoneWith: nil) { (records, error) in
+            if error == nil {
+                CloudKitManager.sharedInstance.calvinBudget = []
+                CloudKitManager.sharedInstance.rosieBudget = []
+                
+                var budgetedCategoriesCalvin = Set<String>()
+                var budgetedCategoriesRosie = Set<String>()
+                
+                for record in records! {
+                    let budget = CategoryBudget(record: record)
+                    if budget.spender == Spender.calvin {
+                        budgetedCategoriesCalvin.insert(budget.category)
+                        CloudKitManager.sharedInstance.calvinBudget.append(budget)
+                    } else {
+                        budgetedCategoriesRosie.insert(budget.category)
+                        CloudKitManager.sharedInstance.rosieBudget.append(budget)
+                    }
+                }
+                
+                var toAdd = [] as [CKRecord]
+                let categories = CloudKitManager.getCategories()
+                for category in categories {
+                    let currentPerson = PersonManager.currentPerson()
+                    if !budgetedCategoriesCalvin.contains(category.name) && currentPerson == Spender.calvin {
+                        let newBudget = CategoryBudget(spender: Spender.calvin, category: category.name, budget: NSNumber(value: 0))
+                        toAdd.append(newBudget.createRecord())
+                        CloudKitManager.sharedInstance.calvinBudget.append(newBudget)
+                    }
+                    if !budgetedCategoriesRosie.contains(category.name) && currentPerson == Spender.rosie {
+                        let newBudget = CategoryBudget(spender: Spender.rosie, category: category.name, budget: NSNumber(value: 0))
+                        toAdd.append(newBudget.createRecord())
+                        CloudKitManager.sharedInstance.rosieBudget.append(newBudget)
+                    }
+                }
+                
+                if toAdd.count > 0 {
+                    let operation = CKModifyRecordsOperation.init(recordsToSave: toAdd, recordIDsToDelete: nil)
+                    
+                    operation.modifyRecordsCompletionBlock = { savedRecords, deletedRecordIDs, error in
+                        if error != nil {
+                            onError(error!)
+                        } else {
+                            CloudKitManager.calculateSpentBudget(onSuccess: onSuccess, onError: onError)
+                        }
+                    }
+                    
+                    CloudKitManager.sharedInstance.publicDB.add(operation)
+                } else {
+                    CloudKitManager.calculateSpentBudget(onSuccess: onSuccess, onError: onError)
+                }
+                
+            } else {
+                onError(error!)
+            }
+        }
+    }
+    
+    class func calculateSpentBudget(onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {
+        CloudKitManager.sharedInstance.calvinCategorySpending = [:]
+        CloudKitManager.sharedInstance.rosieCategorySpending = [:]
+        
+        for category in CloudKitManager.getCategories() {
+            let categoryString = category.name
+            CloudKitManager.sharedInstance.calvinCategorySpending[categoryString] = NSNumber(value: 0.0)
+            CloudKitManager.sharedInstance.rosieCategorySpending[categoryString] = NSNumber(value: 0.0)
+        }
+        
+        for expense in CloudKitManager.sharedInstance.expenses {
+            let category = expense.category!
+            let amount = expense.amount!.doubleValue
+            let owed = expense.amountOwed!
+            if expense.spender == Spender.calvin {
+                let savedNum = CloudKitManager.sharedInstance.calvinCategorySpending[category]! as NSNumber
+                var alreadySpent = savedNum.doubleValue as Double
+                alreadySpent += (amount - owed)
+                CloudKitManager.sharedInstance.calvinCategorySpending[category] = NSNumber(value: alreadySpent)
+            } else {
+                let savedNum = CloudKitManager.sharedInstance.rosieCategorySpending[category]! as NSNumber
+                var alreadySpent = savedNum.doubleValue as Double
+                alreadySpent += (amount - owed)
+                CloudKitManager.sharedInstance.rosieCategorySpending[category] = NSNumber(value: alreadySpent)
+            }
+        }
+        
+        for category in CloudKitManager.getCategories() {
+            let categoryString = category.name
+            let calvinNum = CloudKitManager.sharedInstance.calvinCategorySpending[categoryString]
+            let rosieNum = CloudKitManager.sharedInstance.rosieCategorySpending[categoryString]
+            
+            let total = (calvinNum?.doubleValue)! + (rosieNum?.doubleValue)!
+            CloudKitManager.sharedInstance.sharedCategorySpending[categoryString] = NSNumber(value: total)
+        }
+        
+        onSuccess()
     }
     
     class func add(category: ExpenseCategory, onSuccess: @escaping () -> (), onError: @escaping (Error) -> ()) {

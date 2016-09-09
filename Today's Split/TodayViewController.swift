@@ -13,15 +13,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var whoOwesLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
-    
-    var currencyFormatter: NumberFormatter?
         
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view from its nib.
-        
-        self.currencyFormatter = NumberFormatter()
-        self.currencyFormatter!.numberStyle = .currency
     }
     
     override func didReceiveMemoryWarning() {
@@ -44,7 +39,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                 var whoOwesText: String
                 var amountHiddenState: Bool
                 if let name = ExpenseManager.whoOwes() {
-                    amountText = self.currencyFormatter!.string(from: amount!)!
+                    amountText = NumberFormatterManger.sharedInstance.cf.string(from: amount!)!
                     whoOwesText = name + " Owes"
                     amountHiddenState = false
                     

@@ -22,14 +22,28 @@ class SnapshotViewController: UIViewController {
     @IBOutlet weak var addExpenseButton: UIButton!
     @IBOutlet weak var budgetButton: UIButton!
     
-    var currencyFormatter: NumberFormatter?
-    
     override func viewDidLoad() {
         
-        self.currencyFormatter = NumberFormatter()
-        self.currencyFormatter!.numberStyle = .currency
-        
         super.viewDidLoad()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkPerson()
+    }
+    
+    func checkPerson() {
+        if UserDefaults.standard.value(forKey: "ConfirmedPerson") as! String == "" {
+            ErrorManager.confirm(person: Spender.calvin, fromController: self, onVerified: { 
+                self.loadData()
+            })
+        } else {
+            loadData()
+        }
+    }
+    
+    func loadData() {
         
         LoadingAlertManager.showLoadingAlertWith(title: "Calculating Expenses & Budget", message: "Please wait" , from: self)
         
@@ -44,14 +58,10 @@ class SnapshotViewController: UIViewController {
             }
             
             }, onError: {(error) in
-                ErrorManager.present(error: error, onViewController: self)
+                LoadingAlertManager.removeLoadingView(withCompletion: {
+                    ErrorManager.present(error: error, onViewController: self)
+                })
         })
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        reloadLabels()
     }
     
     
@@ -102,7 +112,7 @@ class SnapshotViewController: UIViewController {
                 
                 if let whoOwes = ExpenseManager.whoOwes() {
                     self.whoOwesLabel.text = whoOwes + " Owes"
-                    self.amountOwedLabel.text = self.currencyFormatter!.string(from: amtOwed)
+                    self.amountOwedLabel.text = NumberFormatterManger.sharedInstance.cf.string(from: amtOwed)
                     self.amountOwedLabel.isHidden = false
                 } else {
                     self.whoOwesLabel.text = "All Even"

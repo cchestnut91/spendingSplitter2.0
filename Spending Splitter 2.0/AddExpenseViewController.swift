@@ -33,16 +33,12 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var newExpense: Expense?
     
     var nf: NumberFormatter?
-    var currencyFormatter: NumberFormatter?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.nf = NumberFormatter()
         self.nf!.numberStyle = .percent
-        
-        self.currencyFormatter = NumberFormatter()
-        self.currencyFormatter!.numberStyle = .currency
         
         self.newExpense = Expense()
         self.newExpense?.spender = Spender.calvin
@@ -352,7 +348,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if textField == self.amountField {
             if let doubleValue = Double.init(textField.text!) {
                 self.newExpense?.amount = NSNumber.init(value: doubleValue)
-                textField.text = self.currencyFormatter?.string(from: (self.newExpense?.amount)!)
+                textField.text = NumberFormatterManger.sharedInstance.cf.string(from: (self.newExpense?.amount)!)
             }
             
         } else if textField == self.memoField {

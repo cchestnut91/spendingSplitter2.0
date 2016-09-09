@@ -17,6 +17,8 @@ class CategoryBudget: NSObject {
     var spender: String!
     var ident: String!
     
+    var cachedRecord: CKRecord?
+    
     init(spender: String, category: String, budget: NSNumber) {
         self.category = category
         self.budget = budget
@@ -34,12 +36,19 @@ class CategoryBudget: NSObject {
         
         self.ident = record.recordID.recordName
         
+        self.cachedRecord = record
+        
         super.init()
     }
     
     func createRecord() -> CKRecord {
-        let recordID = CKRecordID(recordName: self.ident)
-        let record = CKRecord(recordType: ExpenseKeys.budgetRecordType, recordID: recordID)
+        var record: CKRecord
+        if self.cachedRecord == nil {
+            let recordID = CKRecordID(recordName: self.ident)
+            record = CKRecord(recordType: ExpenseKeys.budgetRecordType, recordID: recordID)
+        } else {
+            record = self.cachedRecord!
+        }
         
         record.setValue(self.category, forKey: ExpenseKeys.budgetCategory)
         record.setValue(self.budget, forKey: ExpenseKeys.budgetAmount)

@@ -44,6 +44,8 @@ class Expense : NSObject {
         self.recurring = record.value(forKey: ExpenseKeys.expenseRecurringKey) as? Bool
         self.interval = record.value(forKey: ExpenseKeys.expenseIntervalKey) as? String
         
+        self.amountOwed = self.amount!.doubleValue * self.percentageOwed!.doubleValue
+        
         super.init()
     }
    
