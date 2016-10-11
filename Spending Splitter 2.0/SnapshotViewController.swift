@@ -20,8 +20,11 @@ class SnapshotViewController: UIViewController {
     @IBOutlet weak var rosieBudgetStatusLabel: UILabel!
     
     @IBOutlet weak var addExpenseButton: UIButton!
-    @IBOutlet weak var budgetButton: UIButton!
+    @IBOutlet weak var calvinBudgetButton: UIButton!
+    @IBOutlet weak var rosieBudgetButton: UIButton!
     
+    var showLoading: Bool?
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -30,6 +33,7 @@ class SnapshotViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.showLoading = false
         checkPerson()
     }
     
@@ -45,10 +49,13 @@ class SnapshotViewController: UIViewController {
     
     func loadData() {
         
-        LoadingAlertManager.showLoadingAlertWith(title: "Calculating Expenses & Budget", message: "Please wait" , from: self)
+        if self.showLoading! {
+            LoadingAlertManager.showLoadingAlertWith(title: "Calculating Expenses & Budget", message: "Please wait" , from: self)
+        }
         
         CloudKitManager.updateExpenses(onSuccess: {
             
+            self.showLoading = true
             self.reloadLabels()
             self.loadSubscriptions()
             
@@ -119,6 +126,24 @@ class SnapshotViewController: UIViewController {
                     self.amountOwedLabel.isHidden = true
                 }
             })
+        }
+    }
+    
+    @IBAction func budgetButtonTapped(_ sender: AnyObject) {
+        self.performSegue(withIdentifier: "budgetSegue", sender: sender)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "budgetSegue" {
+            if let button = sender as? UIButton {
+                let nav = segue.destination as! UINavigationController
+                let controller = nav.viewControllers.first as! BudgetsViewController
+                if button == self.calvinBudgetButton {
+                    controller.initialSelection = NSNumber(value: 0)
+                } else {
+                    controller.initialSelection = NSNumber(value: 1)
+                }
+            }
         }
     }
 

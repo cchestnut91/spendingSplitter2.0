@@ -14,9 +14,16 @@ class NumberFormatterManger: NSObject {
     
     var cf: NumberFormatter!
     
+    var df: DateFormatter!
+    
     override init() {
         self.cf = NumberFormatter()
         self.cf.numberStyle = .currency
+        
+        self.df = DateFormatter()
+        self.df.dateStyle = DateFormatter.Style.short
+        
+        super.init()
     }
     
     func currency() -> NumberFormatter {

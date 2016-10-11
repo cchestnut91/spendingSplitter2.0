@@ -12,6 +12,8 @@
 		3E0398FC1D8259D200F9036B /* BudgetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0398FB1D8259D200F9036B /* BudgetTableViewCell.swift */; };
 		3E0398FF1D82643700F9036B /* NumberFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0398FE1D82643700F9036B /* NumberFormatterManager.swift */; };
 		3E0399001D82658F00F9036B /* NumberFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0398FE1D82643700F9036B /* NumberFormatterManager.swift */; };
+		3E08A3861D881FA700E88240 /* CategoryDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08A3851D881FA700E88240 /* CategoryDetailsTableViewController.swift */; };
+		3E08A3881D88214900E88240 /* ExpenseDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08A3871D88214900E88240 /* ExpenseDetailCell.swift */; };
 		3E0A5DE01D7CF89700C1A91A /* QuickActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A5DDF1D7CF89700C1A91A /* QuickActionManager.swift */; };
 		3E0A8FA01D76FEA1008E3B9D /* RecurringExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8F9F1D76FEA1008E3B9D /* RecurringExpense.swift */; };
 		3E0A8FA21D76FFB1008E3B9D /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0A8FA11D76FFB1008E3B9D /* CloudKitManager.swift */; };
@@ -91,6 +93,8 @@
 		3E0398F91D8259C600F9036B /* BudgetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetsViewController.swift; sourceTree = "<group>"; };
 		3E0398FB1D8259D200F9036B /* BudgetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetTableViewCell.swift; sourceTree = "<group>"; };
 		3E0398FE1D82643700F9036B /* NumberFormatterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberFormatterManager.swift; sourceTree = "<group>"; };
+		3E08A3851D881FA700E88240 /* CategoryDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailsTableViewController.swift; sourceTree = "<group>"; };
+		3E08A3871D88214900E88240 /* ExpenseDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseDetailCell.swift; sourceTree = "<group>"; };
 		3E0A5DDF1D7CF89700C1A91A /* QuickActionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionManager.swift; sourceTree = "<group>"; };
 		3E0A8F9F1D76FEA1008E3B9D /* RecurringExpense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecurringExpense.swift; sourceTree = "<group>"; };
 		3E0A8FA11D76FFB1008E3B9D /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				3E0398FB1D8259D200F9036B /* BudgetTableViewCell.swift */,
+				3E08A3871D88214900E88240 /* ExpenseDetailCell.swift */,
 			);
 			name = "Table View Cells";
 			sourceTree = "<group>";
@@ -212,6 +217,7 @@
 				3EF8F8731D76705600324861 /* SnapshotViewController.swift */,
 				3E0A8FAD1D77BC4E008E3B9D /* AddExpenseViewController.swift */,
 				3E0398F91D8259C600F9036B /* BudgetsViewController.swift */,
+				3E08A3851D881FA700E88240 /* CategoryDetailsTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -514,9 +520,11 @@
 				3EF8F8721D76705600324861 /* AppDelegate.swift in Sources */,
 				3E0398FF1D82643700F9036B /* NumberFormatterManager.swift in Sources */,
 				3E0A8FB21D77D3E5008E3B9D /* IntervalManager.swift in Sources */,
+				3E08A3881D88214900E88240 /* ExpenseDetailCell.swift in Sources */,
 				3E0A5DE01D7CF89700C1A91A /* QuickActionManager.swift in Sources */,
 				3E0A8FA21D76FFB1008E3B9D /* CloudKitManager.swift in Sources */,
 				3EF8F8A41D768AB800324861 /* ExpenseKeys.swift in Sources */,
+				3E08A3861D881FA700E88240 /* CategoryDetailsTableViewController.swift in Sources */,
 				3EF8F8A81D768AF000324861 /* Expense.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -31,6 +31,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
         
+        CloudKitManager.sharedInstance.calcBudget = false
+        
         CloudKitManager.updateExpenses(onSuccess: {
             DispatchQueue.main.async {
                 let amount = ExpenseManager.amountOwedToDisplay()

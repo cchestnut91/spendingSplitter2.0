@@ -26,7 +26,7 @@ class BudgetTableViewCell: UITableViewCell {
             color = UIColor.red
             diff = diff * -1
         } else {
-            color = self.tintColor
+            color = UIColor(colorLiteralRed: 255.0/255, green: 252.0/255, blue: 49.0/255, alpha: 1)
         }
         self.differenceLabel.text = NumberFormatterManger.sharedInstance.cf.string(from: NSNumber(value: diff));
         self.differenceLabel.textColor = color

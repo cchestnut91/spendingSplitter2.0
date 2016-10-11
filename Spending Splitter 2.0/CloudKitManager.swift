@@ -24,6 +24,8 @@ class CloudKitManager : NSObject {
     
     let publicDB: CKDatabase
     
+    var calcBudget: Bool
+    
     static let sharedInstance = CloudKitManager()
     
     override init() {
@@ -40,6 +42,8 @@ class CloudKitManager : NSObject {
         self.calvinCategorySpending = [:]
         self.rosieCategorySpending = [:]
         self.sharedCategorySpending = [:]
+        
+        calcBudget = true
         
         super.init()
     }
@@ -412,7 +416,12 @@ class CloudKitManager : NSObject {
         
         CloudKitManager.sortExpenses()
         
-        CloudKitManager.loadCategories(onSuccess: onSuccess, onError: onError)
+        // TODO Does this make sense?
+        if CloudKitManager.sharedInstance.calcBudget == false {
+            onSuccess()
+        } else {
+            CloudKitManager.loadCategories(onSuccess: onSuccess, onError: onError)
+        }
     }
     
     class func hasRegisteredSubscriptions() -> Bool! {
